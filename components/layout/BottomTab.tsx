@@ -4,8 +4,9 @@ import {
   Pressable,
   TouchableOpacity,
   OpaqueColorValue,
+  TouchableHighlight,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useRouter, useSegments } from "expo-router";
 
@@ -27,7 +28,7 @@ const tabs: {
   },
   {
     name: "My Card",
-    link: "my-card",
+    link: "myCard",
     icon: "creditcard",
     styled: true,
   },
@@ -46,16 +47,19 @@ const tabs: {
 const TabIcon = ({
   name,
   color,
+  size = 24,
 }: {
   name: React.ComponentProps<typeof AntDesign>["name"];
   color: string | OpaqueColorValue;
+  size?: number;
 }) => {
-  return <AntDesign name={name} size={24} color={color} />;
+  return <AntDesign name={name} size={size} color={color} />;
 };
 
 const BottomTab = () => {
   const seg = useSegments();
   const router = useRouter();
+  const [isPressed, setIsPressed] = useState(false);
   return (
     <View className="flex flex-row -mt-[53px] w-full items-end justify-between p-3">
       {tabs.map((tab) => {
@@ -63,9 +67,24 @@ const BottomTab = () => {
 
         if (tab.styled) {
           return (
-            <TouchableOpacity activeOpacity={0.9} key={tab.name}>
-              <View className="w-28 flex bg-red-500 items-center justify-center h-28 border border-red-600 rounded-full">
-                <TabIcon name={tab.icon} color="white" />
+            <TouchableOpacity
+              onPress={() => {
+                router.push(tab.link);
+              }}
+              onPressIn={() => setIsPressed(true)}
+              onPressOut={() => setIsPressed(false)}
+              activeOpacity={0.9}
+              key={tab.name}
+            >
+              <View
+                style={{
+                  width: isPressed ? 113 : 112,
+                  height: isPressed ? 113 : 112,
+                }}
+                className="flex bg-red-500 items-center justify-center border border-red-600 rounded-full"
+              >
+                <TabIcon name={tab.icon} color="white" size={27} />
+                <Text className="text-white font-interMedium">IOCL Plus</Text>
               </View>
             </TouchableOpacity>
           );
