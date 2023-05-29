@@ -6,10 +6,6 @@ import { useRouter } from "expo-router";
 const index = () => {
   const router = useRouter();
 
-  // useEffect(() => {
-  //   router && router.replace("/home");
-  // }, [router]);
-
   return (
     <SafeAreaView>
       <TouchableOpacity

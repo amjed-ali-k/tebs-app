@@ -27,7 +27,6 @@ function useProtectedRoute(user: UserType | null) {
 
   React.useEffect(() => {
     const inAuthGroup = segments[0] === "(auth)";
-
     if (
       // If the user is not signed in and the initial segment is not anything in the auth group.
       !user &&
