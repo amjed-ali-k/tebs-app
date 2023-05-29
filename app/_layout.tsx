@@ -13,6 +13,7 @@ import {
   Inter_800ExtraBold,
 } from "@expo-google-fonts/inter";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AuthProvider } from "../context/auth";
 
 export const unstable_settings = {
   // Ensure any route can link back to `/`
@@ -35,8 +36,10 @@ export default function Layout() {
 
   // Render the children routes now that all the assets are loaded.
   return (
-    <SafeAreaView>
-      <Slot />
-    </SafeAreaView>
+    <AuthProvider>
+      <SafeAreaView>
+        <Slot />
+      </SafeAreaView>
+    </AuthProvider>
   );
 }

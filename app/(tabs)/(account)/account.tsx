@@ -1,9 +1,11 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
-import { Image } from "expo-image";
 import MenuItem from "../../../components/menu/Basic";
+import { useAuth } from "../../../context/auth";
 
-const account = () => {
+const Account = () => {
+  const ctx = useAuth();
+  const signOut = () => ctx?.signOut();
   return (
     <View className="p-4">
       <TouchableOpacity
@@ -22,9 +24,9 @@ const account = () => {
       <MenuItem icon="help" text="Help" link="--" />
       <MenuItem icon="settings" text="Settings" link="--" />
       <MenuItem text="Legal" link="--" />
-      <MenuItem text="Sign out" link="--" />
+      <MenuItem text="Sign out" link="--" onPress={signOut} />
     </View>
   );
 };
 
-export default account;
+export default Account;

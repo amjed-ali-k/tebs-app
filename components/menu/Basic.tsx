@@ -7,6 +7,7 @@ const MenuItem = ({
   icon,
   text,
   link,
+  onPress,
 }: {
   icon?:
     | "bonus"
@@ -18,11 +19,12 @@ const MenuItem = ({
     | "transaction";
   text: string;
   link: string;
+  onPress?: () => void;
 }) => {
   const router = useRouter();
   return (
     <TouchableOpacity
-      onPress={() => router.push(link)}
+      onPress={onPress ? onPress : () => router.push(link)}
       activeOpacity={0.7}
       className="flex flex-row py-5 border-b-2 items-center border-gray-200"
     >
