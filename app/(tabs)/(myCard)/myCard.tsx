@@ -187,7 +187,6 @@ const MyCard = () => {
         "https://prewallet.tebs.co.in/api/v1/Coupon/GetAllCoupons?tenantUID=EasyGasIndia&branchID=0"
       )
       .then(({ data }) => {
-        console.log(data);
         setCoupons(data);
       });
   }, []);
