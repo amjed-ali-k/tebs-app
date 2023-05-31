@@ -84,7 +84,7 @@ const BottomTab = () => {
                 className="flex bg-red-500 items-center justify-center border border-red-600 rounded-full"
               >
                 <TabIcon name={tab.icon} color="white" size={27} />
-                <Text className="text-white font-interMedium">IOCL Plus</Text>
+                <Text className="text-white font-interMedium">Total Plus</Text>
               </View>
             </TouchableOpacity>
           );

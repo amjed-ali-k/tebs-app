@@ -64,7 +64,7 @@ function OffersList({ extended = false }: { extended?: boolean }) {
       data={[
         {
           image: require("./../../assets/ad-1.png"),
-          title: "IOCL V-Power Rewards Program",
+          title: "Total Rewards Program",
           subtitle: "31/12/2023",
         },
         {
@@ -79,12 +79,12 @@ function OffersList({ extended = false }: { extended?: boolean }) {
         },
         {
           image: require("./../../assets/ad-4.png"),
-          title: "IOCL V-Power Rewards Program",
+          title: "Total Rewards Program",
           subtitle: "31/12/2023",
         },
         {
           image: require("./../../assets/ad-5.png"),
-          title: "IOCL V-Power Rewards Program",
+          title: "Total Rewards Program",
           subtitle: "31/12/2023",
         },
       ]}
