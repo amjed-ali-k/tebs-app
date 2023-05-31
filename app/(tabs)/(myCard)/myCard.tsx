@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import { MainTitle } from "../../../components/text/Title";
 import { Image } from "expo-image";
@@ -14,14 +14,16 @@ const RewardItem = ({
   validity,
   selected,
   onSelect,
+  code,
   icon,
 }: {
   id: string;
   title: string;
   validity: string;
-  selected: boolean;
-  onSelect: (id: string) => void;
+  selected?: boolean;
+  onSelect?: (id: string) => void;
   icon: PngIconType;
+  code?: string;
 }) => {
   return (
     <View className="flex border-b border-gray-200 py-2 flex-row items-center justify-between w-full">
@@ -43,30 +45,48 @@ const RewardItem = ({
         </View>
         <Text className="text-gray-500">Valid Until {validity}</Text>
       </View>
-      <TouchableOpacity
-        onPress={() => onSelect(id)}
-        activeOpacity={0.8}
-        className={`border shrink-0 items-center rounded-md shadow-sm flex w-32 px-2 py-1 flex-row border-indigo-900 ${
-          selected ? "bg-indigo-900" : "bg-white"
-        }`}
-      >
-        {selected ? (
-          <>
-            <AntDesign name="check" className="mr-1" size={18} color="white" />
-            <Text className="text-gray-100 font-interBold">Selected</Text>
-          </>
-        ) : (
-          <>
-            <AntDesign
-              name="plus"
-              className="mr-1"
-              size={18}
-              color="rgb(49 46 129)"
-            />
-            <Text className="text-indigo-900 font-interBold">Select</Text>
-          </>
-        )}
-      </TouchableOpacity>
+      {code ? (
+        <TouchableOpacity
+          activeOpacity={0.8}
+          className={`border shrink-0 rounded-l-none border-l-4 items-center rounded-md  flex w-32 px-2 py-1 flex-row border-indigo-900 ${
+            selected ? "bg-indigo-900" : "bg-white"
+          }`}
+        >
+          <Text className="font-interExtraBold text-lg">{code}</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          onPress={() => {
+            onSelect && onSelect(id);
+          }}
+          activeOpacity={0.8}
+          className={`border shrink-0 items-center rounded-md shadow-sm flex w-32 px-2 py-1 flex-row border-indigo-900 ${
+            selected ? "bg-indigo-900" : "bg-white"
+          }`}
+        >
+          {selected ? (
+            <>
+              <AntDesign
+                name="check"
+                className="mr-1"
+                size={18}
+                color="white"
+              />
+              <Text className="text-gray-100 font-interBold">Selected</Text>
+            </>
+          ) : (
+            <>
+              <AntDesign
+                name="plus"
+                className="mr-1"
+                size={18}
+                color="rgb(49 46 129)"
+              />
+              <Text className="text-indigo-900 font-interBold">Select</Text>
+            </>
+          )}
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -103,13 +123,43 @@ const rewards: {
   },
 ];
 
+const coupons: {
+  id: string;
+  title: string;
+  validity: string;
+  icon: PngIconType;
+  code: string;
+}[] = [
+  {
+    id: "1",
+    title: "50% off upto Rs.149",
+    validity: "1/12/2023",
+    icon: "coupon",
+    code: "TOTAL50",
+  },
+  {
+    id: "2",
+    title: "Rs 25 off on every Rs 100 fill of Total Petrol",
+    validity: "1/12/2023",
+    icon: "coupon",
+    code: "TOTAL25",
+  },
+  {
+    id: "3",
+    title: "Get Rs 10 off on Rs 300 fill of Total Petrol",
+    validity: "1/12/2023",
+    icon: "coupon",
+    code: "TOTAL10",
+  },
+];
+
 const myCard = () => {
   const [selectedRewards, setSelectedRewards] = React.useState<string[]>([]);
 
   return (
     <View className="">
       <View className="p-4">
-        <MainTitle>Your IOCL + Card</MainTitle>
+        <MainTitle>Your Total + Card</MainTitle>
         <View className="overflow-hidden border flex flex-col border-amber-200 rounded-lg relative">
           <Svg
             className="absolute inset-0 w-full"
@@ -136,9 +186,10 @@ const myCard = () => {
             </Defs>
           </Svg>
           <View className="p-7 grow pb-2 flex flex-row  justify-between">
+            <View className="w-14"></View>
             <Image
-              source={require("./../../../assets/icons/help.png")}
-              className="w-8 h-8"
+              source={require("./../../../assets/te-logo-big.png")}
+              className="w-20 h-20 absolute top-6 left-7"
             />
             <View className="bg-white rounded-md p-5">
               <QRCode value="http://awesome.link.qr" />
@@ -147,6 +198,33 @@ const myCard = () => {
               source={require("./../../../assets/icons/help.png")}
               className="w-8 h-8"
             />
+          </View>
+
+          <View className="flex flex-row justify-between">
+            <View className="p-4">
+              <Text className="text-center font-interExtraBold text-3xl">
+                6000
+              </Text>
+              <Text className="font-interBold text-gray-900/50">
+                Alloted points
+              </Text>
+            </View>
+            <View className="p-4">
+              <Text className="text-center font-interExtraBold text-3xl">
+                1500
+              </Text>
+              <Text className="font-interBold text-gray-900/50">
+                Active points
+              </Text>
+            </View>
+            <View className="p-4">
+              <Text className="text-center font-interExtraBold text-3xl">
+                4000
+              </Text>
+              <Text className="font-interBold text-gray-900/50">
+                Used points
+              </Text>
+            </View>
           </View>
           <View className="relative rounded-lg overflow-hidden">
             <View className="absolute bg-white opacity-40 inset-0 w-full h-full"></View>
@@ -166,40 +244,48 @@ const myCard = () => {
           </View>
         </View>
       </View>
-      <ShadedTitle title="Your Rewards" />
-      <View className="p-4">
-        {rewards.map((reward) => (
-          <RewardItem
-            key={reward.id}
-            {...reward}
-            selected={selectedRewards.includes(reward.id)}
-            onSelect={(id) => {
-              if (selectedRewards.includes(id)) {
-                setSelectedRewards(selectedRewards.filter((i) => i !== id));
-              } else {
-                setSelectedRewards([...selectedRewards, id]);
-              }
-            }}
-          />
-        ))}
-      </View>
-      <ShadedTitle title="Gift catalogue" />
-      <View className="flex border-b border-gray-200 py-2 flex-row items-center justify-between w-full">
-        <PNGIcon icon={"redemption"} className="w-6 h-6 m-6" />
+      <View>
+        <ShadedTitle title="Your Coupons" />
+        <View className="p-4">
+          {coupons.map((coupon) => (
+            <RewardItem key={coupon.id} {...coupon} />
+          ))}
+        </View>
+        <ShadedTitle title="Your Rewards" />
+        <View className="p-4">
+          {rewards.map((reward) => (
+            <RewardItem
+              key={reward.id}
+              {...reward}
+              selected={selectedRewards.includes(reward.id)}
+              onSelect={(id) => {
+                if (selectedRewards.includes(id)) {
+                  setSelectedRewards(selectedRewards.filter((i) => i !== id));
+                } else {
+                  setSelectedRewards([...selectedRewards, id]);
+                }
+              }}
+            />
+          ))}
+        </View>
+        <ShadedTitle title="Gift catalogue" />
+        <View className="flex border-b border-gray-200 py-2 flex-row items-center justify-between w-full">
+          <PNGIcon icon={"redemption"} className="w-6 h-6 m-6" />
 
-        <View className="mx-2 grow">
-          <View>
-            <View style={{ flexDirection: "row" }}>
-              <Text
-                style={{
-                  flex: 1,
-                  flexWrap: "wrap",
-                }}
-                className="font-interMedium text-sm"
-              >
-                Enjoy your redeemed items. Keep using your IOCL Plus card to add
-                more offers along the way.
-              </Text>
+          <View className="mx-2 grow">
+            <View>
+              <View style={{ flexDirection: "row" }}>
+                <Text
+                  style={{
+                    flex: 1,
+                    flexWrap: "wrap",
+                  }}
+                  className="font-interMedium text-sm"
+                >
+                  Enjoy your redeemed items. Keep using your IOCL Plus card to
+                  add more offers along the way.
+                </Text>
+              </View>
             </View>
           </View>
         </View>

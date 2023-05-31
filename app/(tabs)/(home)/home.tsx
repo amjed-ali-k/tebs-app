@@ -22,7 +22,7 @@ const HomeScreen = () => {
         />
         <View className="p-4">
           <Text className="text-3xl font-interExtraBold text-red-600">
-            0 Points
+            1500 Points
           </Text>
           <Text className="font-bold">We hope to see you soon</Text>
           <Text className="underline my-1 text-gray-500">View details</Text>

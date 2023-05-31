@@ -61,7 +61,7 @@ const BottomTab = () => {
   const router = useRouter();
   const [isPressed, setIsPressed] = useState(false);
   return (
-    <View className="flex flex-row -mt-[53px] w-full items-end justify-between p-3">
+    <View className="flex absolute bottom-0  flex-row -mt-[53px] w-full items-end justify-between p-3">
       {tabs.map((tab) => {
         const active = seg.includes(`(${tab.link})`);
 
@@ -75,13 +75,15 @@ const BottomTab = () => {
               onPressOut={() => setIsPressed(false)}
               activeOpacity={0.9}
               key={tab.name}
+              className="relative"
             >
+              <View className="absolute bg-white bottom-0 h-[55px] w-full"></View>
               <View
                 style={{
                   width: isPressed ? 113 : 112,
                   height: isPressed ? 113 : 112,
                 }}
-                className="flex bg-red-500 items-center justify-center border border-red-600 rounded-full"
+                className="flex  bg-red-500 items-center justify-center border border-red-600 rounded-full"
               >
                 <TabIcon name={tab.icon} color="white" size={27} />
                 <Text className="text-white font-interMedium">Total Plus</Text>
@@ -96,7 +98,7 @@ const BottomTab = () => {
             }}
             key={tab.name}
             activeOpacity={0.6}
-            className="grow"
+            className="grow bg-white"
           >
             <View className="flex flex-col border-t py-2 border-t-gray-200 justify-between items-center">
               <TabIcon name={tab.icon} color={active ? "red" : "#9ca3af"} />

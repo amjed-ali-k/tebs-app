@@ -8,6 +8,7 @@ export const iconsMap = {
   redemption: require("./../../assets/icons/redemption.png"),
   settings: require("./../../assets/icons/settings.png"),
   transaction: require("./../../assets/icons/transaction.png"),
+  coupon: require("./../../assets/icons/coupon.png"),
 };
 
 export type PngIconType = keyof typeof iconsMap;

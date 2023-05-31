@@ -1,5 +1,5 @@
 import { Slot } from "expo-router";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 import BottomTab from "../../components/layout/BottomTab";
 
 export const unstable_settings = {
@@ -9,10 +9,11 @@ export const unstable_settings = {
 
 export default function HomeLayout() {
   return (
-    <View className="flex flex-col h-full">
-      <View className="grow">
+    <View className="relative flex flex-col h-full">
+      <ScrollView className="grow">
         <Slot />
-      </View>
+        <View className="my-14"></View>
+      </ScrollView>
       <BottomTab />
     </View>
   );

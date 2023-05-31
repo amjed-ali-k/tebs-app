@@ -3,10 +3,14 @@ import React, { useMemo } from "react";
 
 export type UserType = {
   name: string;
-  email: string;
-  location: string;
+  email?: string;
   avatar: string;
-  phone: string;
+  mobile: string;
+  accessToken: string;
+  refreshToken: string;
+  tenantId: number;
+  cityId: number;
+  userType: number;
 };
 
 const AuthContext = React.createContext<{
