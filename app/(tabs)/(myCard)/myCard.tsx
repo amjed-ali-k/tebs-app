@@ -79,19 +79,19 @@ const rewards: {
 }[] = [
   {
     id: "1",
-    title: "IOCL V-Power Rewards Program",
+    title: "Total Energy Rewards Program",
     validity: "1/12/2023",
     icon: "redemption",
   },
   {
     id: "2",
-    title: "Rs 25 off on every Rs 100 fill of IOCL Petrol",
+    title: "Rs 25 off on every Rs 100 fill of Total Petrol",
     validity: "1/12/2023",
     icon: "redemption",
   },
   {
     id: "3",
-    title: "Get Rs 10 off on Rs 300 fill of IOCL Petrol",
+    title: "Get Rs 10 off on Rs 300 fill of Total Petrol",
     validity: "1/12/2023",
     icon: "redemption",
   },
