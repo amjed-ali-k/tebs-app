@@ -1,4 +1,4 @@
-import { Text, TextInput, View } from "react-native";
+import { StatusBar, Text, TextInput, View } from "react-native";
 import { UserType, useAuth } from "../../context/auth";
 import ThemeButton from "../../components/buttons/ThemeButton";
 import { useState } from "react";
@@ -25,6 +25,8 @@ export default function SignIn() {
       }}
       className=" h-full w-full"
     >
+      <StatusBar animated backgroundColor="#ed1a3a" />
+
       <TouchableOpacity onPress={() => router.back()} activeOpacity={0.8}>
         <Ionicons name="arrow-back" size={24} color="white" className="m-6" />
       </TouchableOpacity>

@@ -3,6 +3,7 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import ThemeButton from "../../components/buttons/ThemeButton";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
+import { StatusBar } from "expo-status-bar";
 
 export default function signIn() {
   const router = useRouter();
@@ -13,10 +14,10 @@ export default function signIn() {
       }}
       className=" h-full w-full"
     >
-      <TouchableOpacity onPress={() => router.back()} activeOpacity={0.8}>
-        <Ionicons name="arrow-back" size={24} color="white" className="m-6" />
+      <StatusBar animated backgroundColor="#ed1a3a" />
+      <TouchableOpacity activeOpacity={0.8}>
+        <Ionicons name="arrow-back" size={24} color="#ed1a3a" className="m-6" />
       </TouchableOpacity>
-
       <View className="flex flex-col h-full justify-center items-center">
         <View className="flex flex-col items-center">
           <Text className="text-2xl mx-auto -mt-24 font-interExtraBold text-white ">
