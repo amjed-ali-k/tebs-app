@@ -12,7 +12,6 @@ import {
   Inter_700Bold,
   Inter_800ExtraBold,
 } from "@expo-google-fonts/inter";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthProvider } from "../context/auth";
 
 export const unstable_settings = {
@@ -37,9 +36,7 @@ export default function Layout() {
   // Render the children routes now that all the assets are loaded.
   return (
     <AuthProvider>
-      <SafeAreaView>
-        <Slot />
-      </SafeAreaView>
+      <Slot />
     </AuthProvider>
   );
 }

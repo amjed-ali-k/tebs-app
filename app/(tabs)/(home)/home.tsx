@@ -4,10 +4,12 @@ import { AntDesign } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import SmallTitle from "../../../components/layout/SmallTitle";
 import OffersList from "../../../components/custom/OffersList";
+import { StatusBar } from "expo-status-bar";
 
 const HomeScreen = () => {
   return (
     <View className="grow px-2">
+      <StatusBar animated backgroundColor="#ffffff" />
       <View className="mx-2 my-4">
         <Text className="text-red-600 font-interExtraBold text-3xl my-3">
           Hi Amjed

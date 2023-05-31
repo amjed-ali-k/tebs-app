@@ -291,9 +291,7 @@ const MyCard = () => {
                   icon="coupon"
                   title={coupon.couponName}
                   code={coupon.couponCode}
-                  validity={`Valid until ${new Date(
-                    coupon.toDate
-                  ).toLocaleDateString()}`}
+                  validity={`${new Date(coupon.toDate).toLocaleDateString()}`}
                   id={coupon.couponId.toString()}
                 />
               ))}
