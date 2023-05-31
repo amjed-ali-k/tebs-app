@@ -12,10 +12,16 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "platforms": ["android", "ios"],
-    "assetBundlePatterns": ["**/*"],
+    "platforms": [
+      "android",
+      "ios"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.amjedalik.tebsapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,7 +30,6 @@
       },
       "package": "com.amjedalik.tebsapp"
     },
-
     "extra": {
       "eas": {
         "projectId": "d9418e92-2fde-40f9-b57d-108ca891fd6c"

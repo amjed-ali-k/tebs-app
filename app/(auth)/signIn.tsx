@@ -10,7 +10,7 @@ import { randomUUID } from "expo-crypto";
 import Lottie from "lottie-react-native";
 
 const loginUrl =
-  "http://punepreproduction.westindia.cloudapp.azure.com:105/api/v1/Customers/login/otp";
+  "http://punepreproduction.westindia.cloudapp.azure.com:92/api/v1/Customers/login/otp";
 
 type ResType = {
   mobile: string;

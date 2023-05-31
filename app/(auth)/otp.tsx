@@ -10,10 +10,10 @@ import Lottie from "lottie-react-native";
 import { StatusBar } from "expo-status-bar";
 
 const otpUrl =
-  "http://punepreproduction.westindia.cloudapp.azure.com:105/api/v1/Customers/login/otp/validate";
+  "http://punepreproduction.westindia.cloudapp.azure.com:92/api/v1/Customers/login/otp/validate";
 
 const otpResend =
-  "http://punepreproduction.westindia.cloudapp.azure.com:105/api/v1/Customers/login/otp/resend";
+  "http://punepreproduction.westindia.cloudapp.azure.com:92/api/v1/Customers/login/otp/resend";
 
 export type ResType = {
   name: string;
@@ -91,7 +91,7 @@ export default function SignIn() {
                 keyboardType="phone-pad"
                 // autoCompleteType="tel"
                 textContentType="oneTimeCode"
-                maxLength={6}
+                maxLength={4}
                 onChange={(e) => setOtp(e.nativeEvent.text)}
                 placeholderTextColor={"#9CA3AF"}
                 editable={!isLoading}
@@ -103,13 +103,14 @@ export default function SignIn() {
           <View className="mx-auto w-96">
             <ThemeButton
               onPress={async () => {
+                if (otp.length < 4) return alert("Please enter a valid OTP");
                 setIsLoading(true);
-                const data = {};
-                // const { data } = await axios.post<ResType>(otpUrl, {
-                //   mobile: params.mobile,
-                //   otpUniqueId: params.otpUniqueId,
-                //   otpValue: otp,
-                // });
+                // const data = {};
+                const { data } = await axios.post<ResType>(otpUrl, {
+                  mobile: params.mobile,
+                  otpUniqueId: params.otpUniqueId,
+                  otpValue: otp,
+                });
 
                 setIsLoading(false);
                 const defaultData = {

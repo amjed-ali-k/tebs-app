@@ -1,8 +1,9 @@
 import { useRouter, useSegments } from "expo-router";
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
+import * as SecureStore from "expo-secure-store";
 
 export type UserType = {
-  name: string;
+  name?: string;
   email?: string;
   avatar: string;
   mobile: string;
@@ -48,11 +49,23 @@ function useProtectedRoute(user: UserType | null) {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setAuth] = React.useState<UserType | null>(null);
 
+  useEffect(() => {
+    SecureStore.getItemAsync("user").then((e) => {
+      if (e) setAuth(JSON.parse(e));
+    });
+  }, []);
+
   useProtectedRoute(user);
   const value = useMemo(
     () => ({
-      signIn: (e: UserType) => setAuth(e),
-      signOut: () => setAuth(null),
+      signIn: (e: UserType) => {
+        setAuth(e);
+        SecureStore.setItemAsync("user", JSON.stringify(e));
+      },
+      signOut: () => {
+        setAuth(null);
+        SecureStore.deleteItemAsync("user");
+      },
       user,
     }),
     [user]

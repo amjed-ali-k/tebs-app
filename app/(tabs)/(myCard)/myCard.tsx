@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MainTitle } from "../../../components/text/Title";
 import { Image } from "expo-image";
 import QRCode from "react-native-qrcode-svg";
@@ -7,6 +7,29 @@ import Svg, { Defs, G, Mask, Path, Rect } from "react-native-svg";
 import { AntDesign } from "@expo/vector-icons";
 import ShadedTitle from "../../../components/text/ShadedTitle";
 import { PNGIcon, PngIconType } from "../../../components/custom/Icons";
+import axiosApiInstance from "../../../context/axios";
+import axios from "axios";
+
+export type CouponType = {
+  couponId: number;
+  couponName: string;
+  couponCode: string;
+  couponType: number;
+  referrerAmount: number;
+  referreeAmount: number;
+  fromDate: Date;
+  toDate: Date;
+  maxTries: number;
+  isActive: boolean;
+  tenantId: number;
+  tenantUID: string;
+  branchId: number;
+  createdAt: Date;
+  updatedAt: Date;
+  firstTime: boolean;
+  refererCouponId: number;
+  fundId: number;
+};
 
 const RewardItem = ({
   id,
@@ -153,8 +176,21 @@ const coupons: {
   },
 ];
 
-const myCard = () => {
+const MyCard = () => {
   const [selectedRewards, setSelectedRewards] = React.useState<string[]>([]);
+
+  const [coupons, setCoupons] = useState<CouponType[] | null>(null);
+
+  useEffect(() => {
+    axios
+      .get<CouponType[]>(
+        "https://prewallet.tebs.co.in/api/v1/Coupon/GetAllCoupons?tenantUID=EasyGasIndia&branchID=0"
+      )
+      .then(({ data }) => {
+        console.log(data);
+        setCoupons(data);
+      });
+  }, []);
 
   return (
     <View className="">
@@ -245,12 +281,25 @@ const myCard = () => {
         </View>
       </View>
       <View>
-        <ShadedTitle title="Your Coupons" />
-        <View className="p-4">
-          {coupons.map((coupon) => (
-            <RewardItem key={coupon.id} {...coupon} />
-          ))}
-        </View>
+        {coupons && coupons.length > 0 && (
+          <>
+            <ShadedTitle title="Your Coupons" />
+            <View className="p-4">
+              {coupons.map((coupon) => (
+                <RewardItem
+                  key={coupon.couponId}
+                  icon="coupon"
+                  title={coupon.couponName}
+                  code={coupon.couponCode}
+                  validity={`Valid until ${new Date(
+                    coupon.toDate
+                  ).toLocaleDateString()}`}
+                  id={coupon.couponId.toString()}
+                />
+              ))}
+            </View>
+          </>
+        )}
         <ShadedTitle title="Your Rewards" />
         <View className="p-4">
           {rewards.map((reward) => (
@@ -294,4 +343,4 @@ const myCard = () => {
   );
 };
 
-export default myCard;
+export default MyCard;
