@@ -66,11 +66,12 @@ const BottomTab = () => {
       // className="flex flex-row -mt-[53px] w-full items-end justify-between p-3"
       style={{
         width: "100%",
-        marginTop: -53,
+        marginTop: -65,
         ...FlexRow,
         justifyContent: "space-between",
         padding: 12,
         alignItems: "flex-end",
+        zIndex: 100,
       }}
     >
       {tabs.map((tab) => {
@@ -93,7 +94,7 @@ const BottomTab = () => {
                   height: isPressed ? 113 : 112,
                   borderRadius: 56,
                   backgroundColor: isPressed ? Red[400] : Red[500],
-                  ...FlexRow,
+                  ...FlexColumn,
                   borderColor: Red[600],
                   borderWidth: 1,
                   alignItems: "center",

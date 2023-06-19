@@ -104,7 +104,8 @@ const RewardItem = ({
           borderColor: selected ? Indigo[900] : Gray[200],
           paddingVertical: 4,
           paddingHorizontal: 8,
-          width: 128,
+          width: 105,
+          ...FlexRow,
         }}
       >
         {selected ? (

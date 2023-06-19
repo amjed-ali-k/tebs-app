@@ -28,7 +28,7 @@ function ListItem({
       style={{
         marginHorizontal: 8,
         width: 384,
-        height: 290,
+        height: 320,
         ...Shadow.sm,
         backgroundColor: White,
         overflow: "hidden",
@@ -104,7 +104,7 @@ function ListItemExtended({
         ...FlexColumn,
         marginHorizontal: 8,
         width: 384,
-        height: 340,
+        height: 390,
         ...Shadow.sm,
         backgroundColor: White,
         overflow: "hidden",
@@ -161,7 +161,7 @@ function OffersList({ extended = false }: { extended?: boolean }) {
     <FlatList
       horizontal
       className="grow-0"
-      style={{ height: extended ? 350 : 300 }}
+      style={{ height: extended ? 400 : 340 }}
       data={[
         {
           image: require("./../../assets/ad-1.png"),
