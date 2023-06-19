@@ -8,7 +8,12 @@ const Account = () => {
   const ctx = useAuth();
   const signOut = () => ctx?.signOut();
   return (
-    <View className="p-4">
+    <View
+      // className="p-4"
+      style={{
+        padding: 16,
+      }}
+    >
       <TouchableOpacity
         activeOpacity={0.8}
         // className="border-2 border-gray-200 rounded-md bg-white my-4 p-4"
