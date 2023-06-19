@@ -5,6 +5,8 @@ import { Image } from "expo-image";
 import SmallTitle from "../../components/layout/SmallTitle";
 import OffersList from "../../components/custom/OffersList";
 import {
+  FlexColumn,
+  FlexRow,
   FontSize,
   Gray,
   Inter,
@@ -124,8 +126,7 @@ const HomeScreen = () => {
             opacity: 0.8,
             padding: 16,
             backgroundColor: Gray[100],
-            display: "flex",
-            flexDirection: "row",
+            ...FlexRow,
             justifyContent: "space-between",
           }}
         >
@@ -155,8 +156,7 @@ const HomeScreen = () => {
           borderRadius: 16,
           overflow: "hidden",
           ...Shadow.sm,
-          display: "flex",
-          flexDirection: "row",
+          ...FlexRow,
           alignItems: "center",
         }}
       >
@@ -168,9 +168,24 @@ const HomeScreen = () => {
             height: 32,
           }}
         />
-        <View className="flex flex-row mx-4">
-          <Text className="font-interBold mr-1 text-xl">Refer a friend</Text>
-          <Text className="font-interBold text-xl text-red-600">
+        <View
+          //   className="flex flex-row mx-4"
+          style={{
+            ...FlexRow,
+            marginLeft: 16,
+            marginRight: 16,
+          }}
+        >
+          <Text
+            // className="font-interBold mr-1 text-xl"
+            style={{ fontFamily: Inter.bold, ...FontSize.xl, marginRight: 4 }}
+          >
+            Refer a friend
+          </Text>
+          <Text
+            //   className="font-interBold text-xl text-red-600"
+            style={{ fontFamily: Inter.bold, ...FontSize.xl, color: Red[600] }}
+          >
             +250 points
           </Text>
         </View>
@@ -179,7 +194,11 @@ const HomeScreen = () => {
 
       <FlatList
         horizontal
-        className="grow-0 h-36"
+        //   className="grow-0 h-36"
+        style={{
+          flexGrow: 0,
+          height: 144,
+        }}
         data={[
           {
             image: require("./../../assets/birthday.png"),
@@ -195,15 +214,53 @@ const HomeScreen = () => {
         renderItem={({ item }) => (
           <TouchableOpacity
             activeOpacity={0.7}
-            className="flex flex-col mx-2 w-48 h-32 shadow-sm bg-gray-50  overflow-hidden rounded-lg"
+            // className="flex flex-col mx-2 w-48 h-32 shadow-sm bg-gray-50  overflow-hidden rounded-lg"
+            style={{
+              marginHorizontal: 8,
+              width: 192,
+              height: 128,
+              ...Shadow.sm,
+              backgroundColor: Gray[100],
+
+              overflow: "hidden",
+              borderRadius: 16,
+              ...FlexColumn,
+            }}
           >
             <Image
               source={item.image}
-              className="w-24 h-24 absolute -bottom-5 -right-2"
+              // className="w-24 h-24 absolute -bottom-5 -right-2"
+              style={{
+                width: 96,
+                height: 96,
+                position: "absolute",
+                bottom: -20,
+                right: -8,
+              }}
             />
-            <View className="flex flex-column m-4">
-              <Text className="font-interBold mr-1 text-xl">{item.title}</Text>
-              <Text className="font-interBold text-xl">{item.subtitle}</Text>
+            <View
+              // className="flex flex-column m-4"
+              style={{
+                ...FlexColumn,
+                margin: 16,
+              }}
+            >
+              <Text
+                // className="font-interBold mr-1 text-xl"
+                style={{
+                  fontFamily: Inter.bold,
+                  ...FontSize.xl,
+                  marginRight: 4,
+                }}
+              >
+                {item.title}
+              </Text>
+              <Text
+                // className="font-interBold text-xl"
+                style={{ fontFamily: Inter.bold, ...FontSize.xl }}
+              >
+                {item.subtitle}
+              </Text>
             </View>
           </TouchableOpacity>
         )}

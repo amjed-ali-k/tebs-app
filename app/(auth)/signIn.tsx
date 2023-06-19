@@ -2,6 +2,12 @@ import { Text, TextInput, View } from "react-native";
 
 import ThemeButton from "../../components/buttons/ThemeButton";
 import { useRouter } from "expo-router";
+import {
+  FlexColumn,
+  FlexRow,
+  Inter,
+  Red,
+} from "../../components/styling/constants";
 
 export default function signIn() {
   const router = useRouter();
@@ -9,12 +15,11 @@ export default function signIn() {
     <View
       // className="bg-red-500 flex flex-col justify-center items-center h-full w-full"
       style={{
-        backgroundColor: "#DC2626",
+        backgroundColor: Red[500],
         height: "100%",
         // width: "100%",
         // flex: 1,
-        display: "flex",
-        flexDirection: "column",
+        ...FlexColumn,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -25,7 +30,7 @@ export default function signIn() {
           style={{
             fontSize: 24,
             lineHeight: 32,
-            fontFamily: "Inter_800ExtraBold",
+            fontFamily: Inter.extraBold,
             color: "#F9FAFB",
             marginBottom: 56,
             marginTop: -96,
@@ -45,8 +50,7 @@ export default function signIn() {
               width: 384,
               marginTop: 16,
               marginBottom: 16,
-              display: "flex",
-              flexDirection: "row",
+              ...FlexRow,
               alignItems: "center",
             }}
           >
@@ -55,7 +59,7 @@ export default function signIn() {
               style={{
                 fontSize: 36,
                 lineHeight: 40,
-                fontFamily: "Inter_800ExtraBold",
+                fontFamily: Inter.extraBold,
                 color: "#4B5563",
                 marginRight: 8,
               }}
@@ -68,7 +72,7 @@ export default function signIn() {
               style={{
                 fontSize: 36,
                 lineHeight: 40,
-                fontFamily: "Inter_800ExtraBold",
+                fontFamily: Inter.extraBold,
                 color: "#4B5563",
                 flexGrow: 1,
               }}

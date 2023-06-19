@@ -1,6 +1,12 @@
 import { Text, TextInput, View } from "react-native";
 import { UserType, useAuth } from "../../context/auth";
 import ThemeButton from "../../components/buttons/ThemeButton";
+import {
+  FlexColumn,
+  FlexRow,
+  Inter,
+  Red,
+} from "../../components/styling/constants";
 
 export default function otp() {
   const ctx = useAuth();
@@ -10,12 +16,11 @@ export default function otp() {
     <View
       //   className="bg-red-500 flex flex-col justify-center items-center h-full w-full"
       style={{
-        backgroundColor: "#DC2626",
+        backgroundColor: Red[500],
         height: "100%",
         // width: "100%",
         // flex: 1,
-        display: "flex",
-        flexDirection: "column",
+        ...FlexColumn,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -26,7 +31,7 @@ export default function otp() {
           style={{
             fontSize: 24,
             lineHeight: 32,
-            fontFamily: "Inter_800ExtraBold",
+            fontFamily: Inter.extraBold,
             color: "#F9FAFB",
             marginBottom: 32,
             marginTop: -96,
@@ -46,8 +51,7 @@ export default function otp() {
               width: 334,
               marginTop: 16,
               marginBottom: 16,
-              display: "flex",
-              flexDirection: "row",
+              ...FlexRow,
               alignItems: "center",
             }}
           >
@@ -57,7 +61,7 @@ export default function otp() {
               style={{
                 fontSize: 36,
                 lineHeight: 40,
-                fontFamily: "Inter_700Bold",
+                fontFamily: Inter.bold,
                 color: "#4B5563",
                 marginRight: 8,
                 flexGrow: 1,

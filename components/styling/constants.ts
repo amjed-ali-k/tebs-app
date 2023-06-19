@@ -1,3 +1,6 @@
+import { Style } from "nativewind/dist/transform-css/types";
+import { FlexStyle, StyleProp } from "react-native";
+
 // Tailwind colors to variables
 export const Red = {
   100: "#FFCDD2",
@@ -243,4 +246,20 @@ export const Shadow = {
     shadowRadius: 14.0,
     elevation: 12,
   },
+};
+
+export const FlexRow: {
+  flexDirection: FlexStyle["flexDirection"];
+  display: FlexStyle["display"];
+} = {
+  flexDirection: "row",
+  display: "flex",
+};
+
+export const FlexColumn: {
+  flexDirection: FlexStyle["flexDirection"];
+  display: FlexStyle["display"];
+} = {
+  flexDirection: "column",
+  display: "flex",
 };
