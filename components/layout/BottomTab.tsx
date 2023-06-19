@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  Pressable,
-  TouchableOpacity,
-  OpaqueColorValue,
-  TouchableHighlight,
-} from "react-native";
+import { View, Text, TouchableOpacity, OpaqueColorValue } from "react-native";
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useRouter, useSegments } from "expo-router";

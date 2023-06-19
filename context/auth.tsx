@@ -33,7 +33,7 @@ function useProtectedRoute(user: UserType | null) {
       !inAuthGroup
     ) {
       // Redirect to the sign-in page.
-      router.replace("/test");
+      router.replace("/signIn");
     } else if (user && inAuthGroup) {
       // Redirect away from the sign-in page.
       router.replace("/home");
