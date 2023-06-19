@@ -160,8 +160,8 @@ function OffersList({ extended = false }: { extended?: boolean }) {
   return (
     <FlatList
       horizontal
-      className="grow-0"
-      style={{ height: extended ? 400 : 340 }}
+      // className="grow-0"
+      style={{ height: extended ? 400 : 340, flexGrow: 0 }}
       data={[
         {
           image: require("./../../assets/ad-1.png"),
