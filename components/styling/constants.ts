@@ -158,3 +158,89 @@ export const BlueGray = {
 export const White = "#FFFFFF";
 export const Black = "#000000";
 export const Transparent = "transparent";
+
+export const FontSize = {
+  xs: {
+    fontSize: 10,
+    lineHeight: 14,
+  },
+  sm: {
+    fontSize: 12,
+    lineHeight: 18,
+  },
+  base: {
+    fontSize: 14,
+    lineHeight: 22,
+  },
+  lg: {
+    fontSize: 16,
+    lineHeight: 22,
+  },
+  xl: {
+    fontSize: 18,
+    lineHeight: 26,
+  },
+  "2xl": {
+    fontSize: 22,
+    lineHeight: 30,
+  },
+  "3xl": {
+    fontSize: 28,
+    lineHeight: 38,
+  },
+  "4xl": {
+    fontSize: 34,
+    lineHeight: 38,
+  },
+};
+
+export const Inter = {
+  medium: "Inter_500Medium",
+  regular: "Inter_400Regular",
+  bold: "Inter_700Bold",
+  extraBold: "Inter_800ExtraBold",
+  black: "Inter_900Black",
+};
+
+export const Shadow = {
+  sm: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.0,
+    elevation: 1,
+  },
+  md: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4.0,
+    elevation: 4,
+  },
+  lg: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 10.0,
+    elevation: 8,
+  },
+  xl: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 14.0,
+    elevation: 12,
+  },
+};

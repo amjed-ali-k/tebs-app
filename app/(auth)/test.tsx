@@ -1,62 +1,217 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
-import MenuItem from "../../components/menu/Basic";
-import { useAuth } from "../../context/auth";
-import { Gray, Red } from "../../components/styling/constants";
+import { AntDesign } from "@expo/vector-icons";
+import { Image } from "expo-image";
+import SmallTitle from "../../components/layout/SmallTitle";
+import OffersList from "../../components/custom/OffersList";
+import {
+  FontSize,
+  Gray,
+  Inter,
+  Red,
+  Shadow,
+  White,
+} from "../../components/styling/constants";
 
-const Account = () => {
-  const ctx = useAuth();
-  const signOut = () => ctx?.signOut();
+const HomeScreen = () => {
   return (
-    <View className="p-4">
-      <TouchableOpacity
-        activeOpacity={0.8}
-        // className="border-2 border-gray-200 rounded-md bg-white my-4 p-4"
+    <View
+      //   className="grow px-2"
+      style={{
+        flexGrow: 1,
+        paddingLeft: 8,
+        paddingRight: 8,
+      }}
+    >
+      <View
+        //   className="mx-2 my-4"
         style={{
-          borderWidth: 2,
-          borderColor: Gray[200],
-          borderRadius: 8,
-          backgroundColor: "#FFFFFF",
+          marginLeft: 8,
+          marginRight: 8,
           marginTop: 16,
           marginBottom: 16,
-          padding: 16,
         }}
       >
         <Text
-          //   className="text-red-600 font-interBold text-xl"
+          //   className="text-red-600 font-interExtraBold text-3xl my-3"
           style={{
-            fontSize: 24,
-            lineHeight: 32,
-            fontFamily: "Inter_700Bold",
+            ...FontSize["3xl"],
+            fontFamily: Inter.extraBold,
             color: Red[600],
+            marginBottom: 12,
+            marginTop: 12,
           }}
         >
-          Amjed
+          Hi Amjed
         </Text>
         <Text
-          //   className="text-gray-700 text-base"
+          //   className="text-2xl font-interBold"
           style={{
-            fontSize: 16,
-            lineHeight: 24,
-            fontFamily: "Inter_500Medium",
-            color: Gray[700],
+            ...FontSize["2xl"],
+            fontFamily: Inter.bold,
           }}
         >
-          View and edit profile
+          Nice to see you again!
         </Text>
-      </TouchableOpacity>
-      <MenuItem icon="transaction" text="Transactions" link="--" />
-      <MenuItem icon="redemption" text="Redemptions" link="--" />
-      <MenuItem icon="bonus" text="Bonus points" link="--" />
-      <MenuItem icon="expired" text="Expired points" link="--" />
-      <MenuItem icon="redemption" text="Redeem a voucher" link="--" />
-      <MenuItem icon="directions" text="App tour" link="--" />
-      <MenuItem icon="help" text="Help" link="--" />
-      <MenuItem icon="settings" text="Settings" link="--" />
-      <MenuItem text="Legal" link="--" />
-      <MenuItem text="Sign out" link="--" onPress={signOut} />
+      </View>
+
+      <View
+        // className="mx-2 border border-gray-200 shadow-sm bg-white rounded-xl my-4"
+        style={{
+          marginLeft: 8,
+          marginRight: 8,
+          marginTop: 16,
+          marginBottom: 16,
+          borderWidth: 1,
+          borderColor: Gray[200],
+          backgroundColor: White,
+          borderRadius: 16,
+          overflow: "hidden",
+          ...Shadow.sm,
+        }}
+      >
+        <Image
+          source={require("./../../assets/stars.png")}
+          //   className="w-[200] h-[100] absolute top-0 right-0"
+          style={{
+            width: 200,
+            height: 100,
+            position: "absolute",
+            top: 0,
+            right: 0,
+          }}
+        />
+        <View
+          //   className="p-4"
+          style={{
+            padding: 16,
+          }}
+        >
+          <Text
+            // className="text-3xl font-interExtraBold text-red-600"
+            style={{
+              ...FontSize["3xl"],
+              fontFamily: Inter.extraBold,
+              color: Red[600],
+            }}
+          >
+            0 Points
+          </Text>
+          <Text
+            //   className="font-bold"
+            style={{
+              fontFamily: Inter.bold,
+            }}
+          >
+            We hope to see you soon
+          </Text>
+          <Text
+            //   className="underline my-1 text-gray-500"
+            style={{
+              //   fontFamily: Inter.bold,
+              color: Gray[500],
+              textDecorationLine: "underline",
+              marginTop: 8,
+              marginBottom: 8,
+            }}
+          >
+            View details
+          </Text>
+        </View>
+        <View
+          //   className="flex flex-row justify-between opacity-80  px-4 bg-gray-100 py-4"
+          style={{
+            opacity: 0.8,
+            padding: 16,
+            backgroundColor: Gray[100],
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text
+            //   className="text-lg font-interBold"
+            style={{
+              ...FontSize.lg,
+              fontFamily: Inter.bold,
+            }}
+          >
+            Redeem your Loyalty Points
+          </Text>
+          <AntDesign name="right" size={15} />
+        </View>
+      </View>
+      <View
+        // className="flex flex-row p-4 my-4 border border-gray-200 rounded-xl shadow-sm mx-2 bg-white items-center "
+        style={{
+          marginLeft: 8,
+          marginRight: 8,
+          marginTop: 16,
+          marginBottom: 16,
+          padding: 16,
+          borderWidth: 1,
+          borderColor: Gray[200],
+          backgroundColor: White,
+          borderRadius: 16,
+          overflow: "hidden",
+          ...Shadow.sm,
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+        }}
+      >
+        <Image
+          source={require("./../../assets/coin.png")}
+          //   className="w-8 h-8"
+          style={{
+            width: 32,
+            height: 32,
+          }}
+        />
+        <View className="flex flex-row mx-4">
+          <Text className="font-interBold mr-1 text-xl">Refer a friend</Text>
+          <Text className="font-interBold text-xl text-red-600">
+            +250 points
+          </Text>
+        </View>
+      </View>
+      <SmallTitle>COMPLETE YOUR PROFILE</SmallTitle>
+
+      <FlatList
+        horizontal
+        className="grow-0 h-36"
+        data={[
+          {
+            image: require("./../../assets/birthday.png"),
+            title: "Add Birthday",
+            subtitle: "+50 points",
+          },
+          {
+            image: require("./../../assets/mail.png"),
+            title: "Add Email",
+            subtitle: "+50 points",
+          },
+        ]}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            activeOpacity={0.7}
+            className="flex flex-col mx-2 w-48 h-32 shadow-sm bg-gray-50  overflow-hidden rounded-lg"
+          >
+            <Image
+              source={item.image}
+              className="w-24 h-24 absolute -bottom-5 -right-2"
+            />
+            <View className="flex flex-column m-4">
+              <Text className="font-interBold mr-1 text-xl">{item.title}</Text>
+              <Text className="font-interBold text-xl">{item.subtitle}</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+      <SmallTitle>FEATURED OFFEERS</SmallTitle>
+      <OffersList />
     </View>
   );
 };
 
-export default Account;
+export default HomeScreen;
