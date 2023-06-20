@@ -262,7 +262,7 @@ export default function MyCard() {
           padding: 16,
         }}
       >
-        <MainTitle>Your IOCL + Card</MainTitle>
+        <MainTitle>Your Total+ Card</MainTitle>
         <View
           // className="overflow-hidden border flex flex-col border-amber-200 rounded-lg relative"
           style={{
@@ -343,35 +343,124 @@ export default function MyCard() {
             />
           </View>
 
-          <View className="flex flex-row justify-between">
-            <View className="p-4">
-              <Text className="text-center font-interExtraBold text-3xl">
+          <View
+            // className="flex flex-row justify-between"
+            style={{
+              ...FlexRow,
+              justifyContent: "space-between",
+            }}
+          >
+            <View
+              // className="p-4"
+              style={{
+                padding: 16,
+              }}
+            >
+              <Text
+                // className="text-center font-interExtraBold text-3xl"
+                style={{
+                  fontFamily: Inter.extraBold,
+                  ...FontSize["3xl"],
+                  textAlign: "center",
+                }}
+              >
                 6000
               </Text>
-              <Text className="font-interBold text-gray-900/50">
+              <Text
+                // className="font-interBold text-gray-900/50"
+                style={{
+                  fontFamily: Inter.bold,
+                  color: Gray[900],
+                  opacity: 0.5,
+                }}
+              >
                 Alloted points
               </Text>
             </View>
-            <View className="p-4">
-              <Text className="text-center font-interExtraBold text-3xl">
+            <View
+              // className="p-4"
+              style={{
+                padding: 16,
+              }}
+            >
+              <Text
+                // className="text-center font-interExtraBold text-3xl"
+                style={{
+                  fontFamily: Inter.extraBold,
+                  textAlign: "center",
+                  ...FontSize["3xl"],
+                }}
+              >
                 1500
               </Text>
-              <Text className="font-interBold text-gray-900/50">
+              <Text
+                // className="font-interBold text-gray-900/50"
+                style={{
+                  fontFamily: Inter.bold,
+                  color: Gray[900],
+                  opacity: 0.5,
+                }}
+              >
                 Active points
               </Text>
             </View>
-            <View className="p-4">
-              <Text className="text-center font-interExtraBold text-3xl">
+            <View
+              // className="p-4"
+              style={{
+                padding: 16,
+              }}
+            >
+              <Text
+                // className="text-center font-interExtraBold text-3xl"
+                style={{
+                  fontFamily: Inter.extraBold,
+                  textAlign: "center",
+                  ...FontSize["3xl"],
+                }}
+              >
                 4000
               </Text>
-              <Text className="font-interBold text-gray-900/50">
+              <Text
+                // className="font-interBold text-gray-900/50"
+                style={{
+                  fontFamily: Inter.bold,
+                  color: Gray[900],
+                  opacity: 0.5,
+                }}
+              >
                 Used points
               </Text>
             </View>
           </View>
-          <View className="relative rounded-lg overflow-hidden">
-            <View className="absolute bg-white opacity-40 inset-0 w-full h-full"></View>
-            <View className="p-3 flex flex-row justify-between items-center">
+          <View
+            // className="relative rounded-lg overflow-hidden"
+            style={{
+              position: "relative",
+              borderRadius: 8,
+              overflow: "hidden",
+            }}
+          >
+            <View
+              // className="absolute bg-white opacity-40 inset-0 w-full h-full"
+              style={{
+                position: "absolute",
+                backgroundColor: White,
+                opacity: 0.4,
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+              }}
+            ></View>
+            <View
+              // className="p-3 flex flex-row justify-between items-center"
+              style={{
+                padding: 12,
+                ...FlexRow,
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
               <View>
                 <Text
                   // className="font-interBold text-lg"
@@ -409,7 +498,12 @@ export default function MyCard() {
         {coupons && coupons.length > 0 && (
           <>
             <ShadedTitle title="Your Coupons" />
-            <View className="p-4">
+            <View
+              // className="p-4"
+              style={{
+                padding: 16,
+              }}
+            >
               {coupons.map((coupon) => (
                 <RewardItem
                   key={coupon.couponId}

@@ -87,9 +87,7 @@ const BottomTab = () => {
               onPressOut={() => setIsPressed(false)}
               activeOpacity={0.9}
               key={tab.name}
-              className="relative"
             >
-              <View className="absolute bg-white bottom-0 h-[55px] w-full"></View>
               <View
                 style={{
                   width: isPressed ? 113 : 112,
@@ -112,7 +110,7 @@ const BottomTab = () => {
                     color: White,
                   }}
                 >
-                  IOCL Plus
+                  Total Plus
                 </Text>
               </View>
             </TouchableOpacity>

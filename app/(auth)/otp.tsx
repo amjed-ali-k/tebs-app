@@ -4,8 +4,10 @@ import ThemeButton from "../../components/buttons/ThemeButton";
 import {
   FlexColumn,
   FlexRow,
+  FontSize,
   Inter,
   Red,
+  White,
 } from "../../components/styling/constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
@@ -30,7 +32,7 @@ export type ResType = {
   cityId: number;
   userType: number;
 };
-export default function otp() {
+export default function Otp() {
   const ctx = useAuth();
 
   const signIn = (e: UserType) => ctx?.signIn(e);
@@ -72,10 +74,24 @@ export default function otp() {
       <StatusBar animated backgroundColor="#ed1a3a" style="light" />
 
       <TouchableOpacity onPress={() => router.back()} activeOpacity={0.8}>
-        <Ionicons name="arrow-back" size={24} color="white" className="m-6" />
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="white"
+          style={{
+            margin: 16,
+          }}
+        />
       </TouchableOpacity>
       {isLoading && (
-        <View className="absolute top-8 w-full">
+        <View
+          // className="absolute top-8 w-full"
+          style={{
+            position: "absolute",
+            top: 32,
+            width: "100%",
+          }}
+        >
           <Lottie
             style={{ height: 12 * 16, width: 12 * 16, alignSelf: "center" }}
             source={require("../../assets/s-loader.json")}
@@ -84,11 +100,38 @@ export default function otp() {
           />
         </View>
       )}
-      <View className="flex flex-col h-full justify-center items-center">
-        <Text className="text-2xl mx-auto -mt-24 font-interExtraBold text-white">
+      <View
+        // className="flex flex-col h-full justify-center items-center"
+        style={{
+          ...FlexColumn,
+          height: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          // className="text-2xl mx-auto -mt-24 font-interExtraBold text-white"
+          style={{
+            ...FontSize["2xl"],
+            marginHorizontal: "auto",
+            marginTop: -56,
+            fontFamily: Inter.extraBold,
+            color: White,
+          }}
+        >
           Verify OTP
         </Text>
-        <Text className="text-center text-rose-300/90 font-interMedium text-lg mb-8">
+        <Text
+          // className="text-center text-rose-300/90 font-interMedium text-lg mb-8"
+          style={{
+            ...FontSize.lg,
+            color: Red[300],
+            fontFamily: Inter.medium,
+            marginBottom: 16,
+            textAlign: "center",
+            opacity: 0.9,
+          }}
+        >
           Please type the OTP as shared on your mobile XXXX
           {params.mobile?.slice(-2)}
         </Text>
@@ -171,11 +214,30 @@ export default function otp() {
           </ThemeButton>
 
           <View>
-            <Text className="text-xl mt-8 text-center text-white/80 font-interMedium">
+            <Text
+              // className="text-xl mt-8 text-center text-white/80 font-interMedium"
+              style={{
+                ...FontSize.xl,
+                marginTop: 32,
+                color: White,
+                fontFamily: Inter.medium,
+                opacity: 0.8,
+                textAlign: "center",
+              }}
+            >
               Didn't you recieve any code?
             </Text>
             {timeOut > 0 ? (
-              <Text className="text-lg text-center text-white/60 font-interBold">
+              <Text
+                // className="text-lg text-center text-white/60 font-interBold"
+                style={{
+                  ...FontSize.lg,
+                  color: White,
+                  fontFamily: Inter.bold,
+                  opacity: 0.6,
+                  textAlign: "center",
+                }}
+              >
                 Resend code in {timeOut} seconds
               </Text>
             ) : (
@@ -192,7 +254,16 @@ export default function otp() {
                 }}
                 activeOpacity={0.6}
               >
-                <Text className="text-lg text-center text-white font-interBold">
+                <Text
+                  // className="text-lg text-center text-white font-interBold"
+                  style={{
+                    ...FontSize.lg,
+                    color: White,
+                    fontFamily: Inter.bold,
+
+                    textAlign: "center",
+                  }}
+                >
                   Resend code
                 </Text>
               </TouchableOpacity>

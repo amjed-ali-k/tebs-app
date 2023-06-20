@@ -25,7 +25,7 @@ import {
   Red,
 } from "../../components/styling/constants";
 
-export default function signIn() {
+export default function SignIn() {
   const router = useRouter();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -43,7 +43,14 @@ export default function signIn() {
       }}
     >
       <TouchableOpacity activeOpacity={0.8}>
-        <Ionicons name="arrow-back" size={24} color="#ed1a3a" className="m-6" />
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="#ed1a3a"
+          style={{
+            margin: 16,
+          }}
+        />
       </TouchableOpacity>
       <StatusBar animated backgroundColor="#ed1a3a" style="light" />
       {isLoading && (
@@ -133,6 +140,9 @@ export default function signIn() {
             textContentType="telephoneNumber"
             maxLength={10}
             placeholderTextColor={"#9CA3AF"}
+            onChange={(e) => {
+              setPhoneNumber(e.nativeEvent.text);
+            }}
             // style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
           />
         </View>
