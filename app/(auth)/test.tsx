@@ -2,10 +2,8 @@ import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import SmallTitle from "../../../components/layout/SmallTitle";
-import OffersList from "../../../components/custom/OffersList";
-import { StatusBar } from "expo-status-bar";
-
+import SmallTitle from "../../components/layout/SmallTitle";
+import OffersList from "../../components/custom/OffersList";
 import {
   FlexColumn,
   FlexRow,
@@ -15,7 +13,7 @@ import {
   Red,
   Shadow,
   White,
-} from "../../../components/styling/constants";
+} from "../../components/styling/constants";
 
 const HomeScreen = () => {
   return (
@@ -27,8 +25,6 @@ const HomeScreen = () => {
         paddingRight: 8,
       }}
     >
-                <StatusBar animated backgroundColor="#ffffff" />
-
       <View
         //   className="mx-2 my-4"
         style={{
@@ -77,7 +73,7 @@ const HomeScreen = () => {
         }}
       >
         <Image
-          source={require("./../../../assets/stars.png")}
+          source={require("./../../assets/stars.png")}
           //   className="w-[200] h-[100] absolute top-0 right-0"
           style={{
             width: 200,
@@ -101,7 +97,7 @@ const HomeScreen = () => {
               color: Red[600],
             }}
           >
-            1500 Points
+            0 Points
           </Text>
           <Text
             //   className="font-bold"
@@ -165,7 +161,7 @@ const HomeScreen = () => {
         }}
       >
         <Image
-          source={require("./../../../assets/coin.png")}
+          source={require("./../../assets/coin.png")}
           //   className="w-8 h-8"
           style={{
             width: 32,
@@ -205,12 +201,12 @@ const HomeScreen = () => {
         }}
         data={[
           {
-            image: require("./../../../assets/birthday.png"),
+            image: require("./../../assets/birthday.png"),
             title: "Add Birthday",
             subtitle: "+50 points",
           },
           {
-            image: require("./../../../assets/mail.png"),
+            image: require("./../../assets/mail.png"),
             title: "Add Email",
             subtitle: "+50 points",
           },

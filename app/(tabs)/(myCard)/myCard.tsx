@@ -30,6 +30,17 @@ export type CouponType = {
   refererCouponId: number;
   fundId: number;
 };
+import {
+  FlexColumn,
+  FlexRow,
+  FontSize,
+  Gray,
+  Indigo,
+  Inter,
+  Orange,
+  Shadow,
+  White,
+} from "../../../components/styling/constants";
 
 const RewardItem = ({
   id,
@@ -49,67 +60,119 @@ const RewardItem = ({
   code?: string;
 }) => {
   return (
-    <View className="flex border-b border-gray-200 py-2 flex-row items-center justify-between w-full">
-      <PNGIcon icon={icon} className="w-6 h-6 m-3" />
+    <View
+      // className="flex border-b border-gray-200 py-2 flex-row items-center justify-between w-full"
+      style={{
+        ...FlexRow,
+        borderBottomColor: Gray[200],
+        paddingVertical: 8,
+        justifyContent: "space-between",
+        alignItems: "center",
+        borderBottomWidth: 1,
+        width: "100%",
+      }}
+    >
+      <PNGIcon
+        icon={icon}
+        // className="w-6 h-6 m-3"
+        style={{
+          width: 32,
+          height: 32,
+          margin: 12,
+        }}
+      />
 
-      <View className="mx-2 grow">
+      <View
+        // className="mx-2 grow"
+        style={{
+          flexGrow: 1,
+          marginHorizontal: 8,
+        }}
+      >
         <View>
           <View style={{ flexDirection: "row" }}>
             <Text
               style={{
                 flex: 1,
                 flexWrap: "wrap",
+                fontFamily: Inter.bold,
+                ...FontSize.lg,
               }}
-              className="font-interBold text-lg"
+              // className="font-interBold text-lg"
             >
               {title}
             </Text>
           </View>
         </View>
-        <Text className="text-gray-500">Valid Until {validity}</Text>
-      </View>
-      {code ? (
-        <TouchableOpacity
-          activeOpacity={0.8}
-          className={`border shrink-0 rounded-l-none border-l-4 items-center rounded-md  flex w-32 px-2 py-1 flex-row border-indigo-900 ${
-            selected ? "bg-indigo-900" : "bg-white"
-          }`}
-        >
-          <Text className="font-interExtraBold text-lg">{code}</Text>
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity
-          onPress={() => {
-            onSelect && onSelect(id);
+        <Text
+          // className="text-gray-500"
+          style={{
+            color: Gray[500],
           }}
-          activeOpacity={0.8}
-          className={`border shrink-0 items-center rounded-md shadow-sm flex w-32 px-2 py-1 flex-row border-indigo-900 ${
-            selected ? "bg-indigo-900" : "bg-white"
-          }`}
         >
-          {selected ? (
-            <>
-              <AntDesign
-                name="check"
-                className="mr-1"
-                size={18}
-                color="white"
-              />
-              <Text className="text-gray-100 font-interBold">Selected</Text>
-            </>
-          ) : (
-            <>
-              <AntDesign
-                name="plus"
-                className="mr-1"
-                size={18}
-                color="rgb(49 46 129)"
-              />
-              <Text className="text-indigo-900 font-interBold">Select</Text>
-            </>
-          )}
-        </TouchableOpacity>
-      )}
+          Valid Until {validity}
+        </Text>
+      </View>
+      <TouchableOpacity
+        onPress={() => onSelect && onSelect(id)}
+        activeOpacity={0.8}
+        // className={`border shrink-0 items-center rounded-md shadow-sm flex w-32 px-2 py-1 flex-row border-indigo-900 ${selected ? "bg-indigo-900" : "bg-white"
+        //   }`}
+
+        style={{
+          borderWidth: 1,
+          flexShrink: 0,
+          alignItems: "center",
+          borderRadius: 6,
+          ...Shadow.sm,
+          backgroundColor: selected ? Indigo[900] : White,
+          borderColor: selected ? Indigo[900] : Gray[200],
+          paddingVertical: 4,
+          paddingHorizontal: 8,
+          width: 105,
+          ...FlexRow,
+        }}
+      >
+        {selected ? (
+          <>
+            <AntDesign
+              name="check"
+              // className="mr-1"
+              style={{ marginRight: 4 }}
+              size={18}
+              color="white"
+            />
+            <Text
+              // className="text-gray-100 font-interBold"
+              style={{
+                fontFamily: Inter.bold,
+                color: Gray[100],
+              }}
+            >
+              Selected
+            </Text>
+          </>
+        ) : (
+          <>
+            <AntDesign
+              name="plus"
+              // className="mr-1"
+              style={{ marginRight: 4 }}
+              size={18}
+              color="rgb(49 46 129)"
+            />
+            <Text
+              // className="text-indigo-900 font-interBold"
+              style={{
+                fontFamily: Inter.bold,
+                color: Indigo[900],
+              }}
+            >
+              Select
+            </Text>
+          </>
+        )}
+      </TouchableOpacity>
     </View>
   );
 };
@@ -176,7 +239,7 @@ const coupons: {
   },
 ];
 
-const MyCard = () => {
+export default function MyCard() {
   const [selectedRewards, setSelectedRewards] = React.useState<string[]>([]);
 
   const [coupons, setCoupons] = useState<CouponType[] | null>(null);
@@ -192,12 +255,34 @@ const MyCard = () => {
   }, []);
 
   return (
-    <View className="">
-      <View className="p-4">
-        <MainTitle>Your Total + Card</MainTitle>
-        <View className="overflow-hidden border flex flex-col border-amber-200 rounded-lg relative">
+    <View>
+      <View
+        // className="p-4"
+        style={{
+          padding: 16,
+        }}
+      >
+        <MainTitle>Your IOCL + Card</MainTitle>
+        <View
+          // className="overflow-hidden border flex flex-col border-amber-200 rounded-lg relative"
+          style={{
+            overflow: "hidden",
+            borderWidth: 1,
+            borderColor: Orange[200],
+            borderRadius: 8,
+            position: "relative",
+            ...FlexColumn,
+          }}
+        >
           <Svg
-            className="absolute inset-0 w-full"
+            // className="absolute inset-0 w-full"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+            }}
             preserveAspectRatio="none"
             width="100%"
             height="100%"
@@ -220,18 +305,41 @@ const MyCard = () => {
               </Mask>
             </Defs>
           </Svg>
-          <View className="p-7 grow pb-2 flex flex-row  justify-between">
-            <View className="w-14"></View>
+          <View
+            // className="p-7 grow pb-2 flex flex-row  justify-between"
+            style={{
+              padding: 28,
+              paddingBottom: 8,
+              ...FlexRow,
+              justifyContent: "space-between",
+              flexGrow: 1,
+            }}
+          >
             <Image
-              source={require("./../../../assets/te-logo-big.png")}
-              className="w-20 h-20 absolute top-6 left-7"
+              source={require("./../../../assets/icons/help.png")}
+              // className="w-8 h-8"
+              style={{
+                width: 32,
+                height: 32,
+              }}
             />
-            <View className="bg-white rounded-md p-5">
+            <View
+              // className="bg-white rounded-md p-5"
+              style={{
+                backgroundColor: White,
+                borderRadius: 6,
+                padding: 20,
+              }}
+            >
               <QRCode value="http://awesome.link.qr" />
             </View>
             <Image
               source={require("./../../../assets/icons/help.png")}
-              className="w-8 h-8"
+              // className="w-8 h-8"
+              style={{
+                width: 32,
+                height: 32,
+              }}
             />
           </View>
 
@@ -265,14 +373,32 @@ const MyCard = () => {
             <View className="absolute bg-white opacity-40 inset-0 w-full h-full"></View>
             <View className="p-3 flex flex-row justify-between items-center">
               <View>
-                <Text className="font-interBold text-lg">
+                <Text
+                  // className="font-interBold text-lg"
+                  style={{
+                    fontFamily: Inter.bold,
+                    ...FontSize.lg,
+                  }}
+                >
                   Selected rewards:
                 </Text>
-                <Text className="text-gray-700">
+                <Text
+                  // className="text-gray-700"
+                  style={{
+                    color: Gray[700],
+                  }}
+                >
                   Show QR above to process your rewards
                 </Text>
               </View>
-              <Text className="font-interExtraBold text-4xl text-gray-700">
+              <Text
+                // className="font-interExtraBold text-4xl text-gray-700"
+                style={{
+                  fontFamily: Inter.extraBold,
+                  ...FontSize["4xl"],
+                  color: Gray[700],
+                }}
+              >
                 {selectedRewards.length}
               </Text>
             </View>
@@ -297,8 +423,14 @@ const MyCard = () => {
             </View>
           </>
         )}
+
         <ShadedTitle title="Your Rewards" />
-        <View className="p-4">
+        <View
+          // className="p-4"
+          style={{
+            padding: 16,
+          }}
+        >
           {rewards.map((reward) => (
             <RewardItem
               key={reward.id}
@@ -315,18 +447,45 @@ const MyCard = () => {
           ))}
         </View>
         <ShadedTitle title="Gift catalogue" />
-        <View className="flex border-b border-gray-200 py-2 flex-row items-center justify-between w-full">
-          <PNGIcon icon={"redemption"} className="w-6 h-6 m-6" />
+        <View
+          // className="flex border-b border-gray-200 py-2 flex-row items-center justify-between w-full"
+          style={{
+            ...FlexRow,
+            borderBottomColor: Gray[200],
+            paddingVertical: 8,
+            justifyContent: "space-between",
+            alignItems: "center",
+            borderBottomWidth: 1,
+            width: "100%",
+          }}
+        >
+          <PNGIcon
+            icon={"redemption"}
+            // className="w-6 h-6 m-6"
+            style={{
+              width: 24,
+              height: 24,
+              margin: 24,
+            }}
+          />
 
-          <View className="mx-2 grow">
+          <View
+            // className="mx-2 grow"
+            style={{
+              flexGrow: 1,
+              marginHorizontal: 8,
+            }}
+          >
             <View>
               <View style={{ flexDirection: "row" }}>
                 <Text
                   style={{
                     flex: 1,
                     flexWrap: "wrap",
+                    fontFamily: Inter.bold,
+                    ...FontSize.sm,
                   }}
-                  className="font-interMedium text-sm"
+                  // className="font-interMedium text-sm"
                 >
                   Enjoy your redeemed items. Keep using your IOCL Plus card to
                   add more offers along the way.
@@ -338,6 +497,4 @@ const MyCard = () => {
       </View>
     </View>
   );
-};
-
-export default MyCard;
+}

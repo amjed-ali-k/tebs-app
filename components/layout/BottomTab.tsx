@@ -1,14 +1,15 @@
-import {
-  View,
-  Text,
-  Pressable,
-  TouchableOpacity,
-  OpaqueColorValue,
-  TouchableHighlight,
-} from "react-native";
+import { View, Text, TouchableOpacity, OpaqueColorValue } from "react-native";
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useRouter, useSegments } from "expo-router";
+import {
+  FlexColumn,
+  FlexRow,
+  Gray,
+  Inter,
+  Red,
+  White,
+} from "../styling/constants";
 
 const tabs: {
   name: string;
@@ -61,7 +62,18 @@ const BottomTab = () => {
   const router = useRouter();
   const [isPressed, setIsPressed] = useState(false);
   return (
-    <View className="flex absolute bottom-0  flex-row -mt-[53px] w-full items-end justify-between p-3 pb-0">
+    <View
+      // className="flex flex-row -mt-[53px] w-full items-end justify-between p-3"
+      style={{
+        width: "100%",
+        marginTop: -65,
+        ...FlexRow,
+        justifyContent: "space-between",
+        padding: 12,
+        alignItems: "flex-end",
+        zIndex: 100,
+      }}
+    >
       {tabs.map((tab) => {
         const active = seg.includes(`(${tab.link})`);
 
@@ -82,11 +94,26 @@ const BottomTab = () => {
                 style={{
                   width: isPressed ? 113 : 112,
                   height: isPressed ? 113 : 112,
+                  borderRadius: 56,
+                  backgroundColor: isPressed ? Red[400] : Red[500],
+                  ...FlexColumn,
+                  borderColor: Red[600],
+                  borderWidth: 1,
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
-                className="flex mb-3  bg-red-500 items-center justify-center border border-red-600 rounded-full"
+                // className="flex bg-red-500 items-center justify-center border border-red-600 rounded-full"
               >
                 <TabIcon name={tab.icon} color="white" size={27} />
-                <Text className="text-white font-interMedium">Total Plus</Text>
+                <Text
+                  // className="text-white font-interMedium"
+                  style={{
+                    fontFamily: Inter.medium,
+                    color: White,
+                  }}
+                >
+                  IOCL Plus
+                </Text>
               </View>
             </TouchableOpacity>
           );
@@ -98,11 +125,29 @@ const BottomTab = () => {
             }}
             key={tab.name}
             activeOpacity={0.6}
-            className="grow bg-white"
+            // className="grow"
+            style={{
+              flexGrow: 1,
+            }}
           >
-            <View className="flex flex-col border-t py-2 pb-3 border-t-gray-200 justify-between items-center">
+            <View
+              // className="flex flex-col border-t py-2 border-t-gray-200 justify-between items-center"
+              style={{
+                ...FlexColumn,
+                paddingVertical: 8,
+                borderTopColor: Gray[200],
+                justifyContent: "space-between",
+                alignItems: "center",
+                borderTopWidth: 1,
+              }}
+            >
               <TabIcon name={tab.icon} color={active ? "red" : "#9ca3af"} />
-              <Text className={`${active ? "text-red-600" : "text-gray-400"}`}>
+              <Text
+                // className={`${active ? "text-red-600" : "text-gray-400"}`}
+                style={{
+                  color: active ? Red[600] : Gray[400],
+                }}
+              >
                 {tab.name}
               </Text>
             </View>

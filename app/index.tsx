@@ -9,10 +9,25 @@ const index = () => {
   return (
     <SafeAreaView>
       <TouchableOpacity
-        className="p-10 m-5 mt-14 border-2 bg-slate-50 border-gray-200 rounded-lg"
+        // style={{
+        //   padding: "40px",
+        //   margin: "20px",
+        //   marginTop: "56px",
+        //   borderWidth: 2,
+        //   backgroundColor: "#F9FAFB",
+        //   borderColor: "#E5E7EB",
+        //   borderRadius: 8,
+        // }}
         onPress={() => router.push("home")}
       >
-        <Text className="text-3xl font-interExtraBold text-red-600">
+        <Text
+        // style={{
+        //   fontSize: 30,
+        //   lineHeight: 36,
+        //   fontFamily: "Inter_800ExtraBold",
+        //   color: "#DC2626",
+        // }}
+        >
           View App
         </Text>
       </TouchableOpacity>

@@ -17,6 +17,13 @@ type ResType = {
   otpUniqueId: string;
   isNewUser: boolean;
 };
+import {
+  FlexColumn,
+  FlexRow,
+  FontSize,
+  Inter,
+  Red,
+} from "../../components/styling/constants";
 
 export default function signIn() {
   const router = useRouter();
@@ -24,14 +31,30 @@ export default function signIn() {
   const [isLoading, setIsLoading] = useState(false);
   return (
     <View
+      // className="bg-red-500 flex flex-col justify-center items-center h-full w-full"
       style={{
-        backgroundColor: "#ed1a3a",
+        backgroundColor: Red[500],
+        height: "100%",
+        // width: "100%",
+        // flex: 1,
+        ...FlexColumn,
+        justifyContent: "center",
+        alignItems: "center",
       }}
-      className=" h-full w-full relative"
     >
+      <TouchableOpacity activeOpacity={0.8}>
+        <Ionicons name="arrow-back" size={24} color="#ed1a3a" className="m-6" />
+      </TouchableOpacity>
       <StatusBar animated backgroundColor="#ed1a3a" style="light" />
       {isLoading && (
-        <View className="absolute top-8 w-full">
+        <View
+          // className="absolute top-8 w-full"
+          style={{
+            position: "absolute",
+            top: 32,
+            width: "100%",
+          }}
+        >
           <Lottie
             style={{ height: 12 * 16, width: 12 * 16, alignSelf: "center" }}
             source={require("../../assets/s-loader.json")}
@@ -40,74 +63,114 @@ export default function signIn() {
           />
         </View>
       )}
-      <TouchableOpacity activeOpacity={0.8}>
-        <Ionicons name="arrow-back" size={24} color="#ed1a3a" className="m-6" />
-      </TouchableOpacity>
-      <View className="flex flex-col h-full justify-center items-center">
-        <View className="flex flex-col items-center">
-          <Text className="text-2xl mx-auto -mt-24 font-interExtraBold text-white ">
-            Login
+      <Text
+        // className="text-2xl mx-auto -mt-24 font-interExtraBold text-white mb-8"
+        style={{
+          fontSize: 24,
+          lineHeight: 32,
+          fontFamily: Inter.extraBold,
+          color: "#F9FAFB",
+          marginBottom: 56,
+          marginTop: -96,
+          marginLeft: "auto",
+          marginRight: "auto",
+        }}
+      >
+        Login
+      </Text>
+      <Text
+        // className="text-center text-rose-300/90 font-interMedium text-lg mb-8"
+        style={{
+          ...FontSize.lg,
+          fontFamily: Inter.medium,
+          color: Red[300],
+          textAlign: "center",
+          marginBottom: 32,
+          opacity: 0.9,
+        }}
+      >
+        Please sign in to continue
+      </Text>
+      <View>
+        <View
+          // className="bg-white p-4 rounded-lg w-96 my-4 flex items-center flex-row"
+          style={{
+            backgroundColor: "#F9FAFB",
+            padding: 16,
+            borderRadius: 8,
+            width: 384,
+            marginTop: 16,
+            marginBottom: 16,
+            ...FlexRow,
+            alignItems: "center",
+          }}
+        >
+          <Text
+            // className="text-4xl text-gray-800 mr-2 font-interBold "
+            style={{
+              fontSize: 36,
+              lineHeight: 40,
+              fontFamily: Inter.extraBold,
+              color: "#4B5563",
+              marginRight: 8,
+            }}
+          >
+            +91
           </Text>
-          <Text className="text-center text-rose-300/90 font-interMedium text-lg mb-8">
-            Please sign in to continue
-          </Text>
-          <View>
-            <View className="bg-white p-4 rounded-lg w-96 my-4 flex items-center flex-row">
-              <Text className="text-4xl text-gray-800 mr-2 font-interBold ">
-                +91
-              </Text>
-              {/* Mobile Number input */}
-              <TextInput
-                className="font-interBold text-4xl grow text-gray-800"
-                placeholder="XXXXXXXXXX"
-                keyboardType="phone-pad"
-                onChange={(e) => setPhoneNumber(e.nativeEvent.text)}
-                // autoCompleteType="tel"
-                textContentType="telephoneNumber"
-                maxLength={10}
-                editable={!isLoading}
-                placeholderTextColor={"#9CA3AF"}
-                // style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-              />
-            </View>
-          </View>
-
-          <View className="mx-auto w-96">
-            <ThemeButton
-              onPress={async () => {
-                if (phoneNumber.length !== 10)
-                  return alert("Please enter a valid phone number");
-                setIsLoading(true);
-                axios
-                  .post<ResType>(loginUrl, {
-                    mobile: phoneNumber,
-                    deviceId: `test-wallet-app-${randomUUID()}`,
-                  })
-                  .then(async ({ data }) => {
-                    await router.push({
-                      pathname: "otp",
-                      params: {
-                        otpUniqueId: data.otpUniqueId,
-                        mobile: data.mobile,
-                        isNewUser: data.isNewUser,
-                      },
-                    });
-                  })
-                  .finally(() => setIsLoading(false));
-              }}
-            >
-              Send code
-            </ThemeButton>
-          </View>
-          {/* <View className="flex w-96 mb-4 flex-row justify-between">
-            <Text className="text-xl my-2 text-white font-interMedium">
-              New user
-            </Text>
-            <Text className="text-xl my-2 text-white font-interMedium ">
-              Forgot Password
-            </Text>
-          </View> */}
+          {/* Mobile Number input */}
+          <TextInput
+            // className="font-interBold text-4xl grow text-gray-800"
+            style={{
+              fontSize: 36,
+              lineHeight: 40,
+              fontFamily: Inter.extraBold,
+              color: "#4B5563",
+              flexGrow: 1,
+            }}
+            placeholder="XXXXXXXXXX"
+            keyboardType="phone-pad"
+            // autoCompleteType="tel"
+            textContentType="telephoneNumber"
+            maxLength={10}
+            placeholderTextColor={"#9CA3AF"}
+            // style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+          />
         </View>
+      </View>
+      <View
+        // className="mx-auto w-96"
+
+        style={{
+          marginLeft: "auto",
+          marginRight: "auto",
+          width: 384,
+        }}
+      >
+        <ThemeButton
+          onPress={async () => {
+            if (phoneNumber.length !== 10)
+              return alert("Please enter a valid phone number");
+            setIsLoading(true);
+            axios
+              .post<ResType>(loginUrl, {
+                mobile: phoneNumber,
+                deviceId: `test-wallet-app-${randomUUID()}`,
+              })
+              .then(async ({ data }) => {
+                await router.push({
+                  pathname: "otp",
+                  params: {
+                    otpUniqueId: data.otpUniqueId,
+                    mobile: data.mobile,
+                    isNewUser: data.isNewUser,
+                  },
+                });
+              })
+              .finally(() => setIsLoading(false));
+          }}
+        >
+          Send code
+        </ThemeButton>
       </View>
     </View>
   );
