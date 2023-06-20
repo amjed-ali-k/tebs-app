@@ -3,7 +3,7 @@
     "name": "tebs-app",
     "slug": "tebs-app",
     "scheme": "myapp",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -12,13 +12,8 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "platforms": [
-      "android",
-      "ios"
-    ],
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "platforms": ["android", "ios"],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.amjedalik.tebsapp"
