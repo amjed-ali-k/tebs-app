@@ -1,6 +1,5 @@
 import { SplashScreen, Slot } from "expo-router";
 import * as Sentry from "sentry-expo";
-import "dotenv/config"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import {
   useFonts,
   Inter_500Medium,
@@ -8,14 +7,14 @@ import {
   Inter_800ExtraBold,
 } from "@expo-google-fonts/inter";
 import { AuthProvider } from "../context/auth";
-
+import Constants from "expo-constants";
 export const unstable_settings = {
   // Ensure any route can link back to `/`
   initialRouteName: "home",
 };
 
 Sentry.init({
-  dsn: process.env.SENTRY_DSN,
+  dsn: Constants?.expoConfig?.extra?.sentryDsn,
   enableInExpoDevelopment: true,
   debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
 });
