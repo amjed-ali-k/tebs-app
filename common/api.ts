@@ -1,8 +1,17 @@
 import axios from "../context/axios";
 
 export interface CustomerWalletResType {
-  transaction: Transaction;
-  walletDetails: WalletDetails;
+  totAmount: number;
+  totAmountAlloted: number;
+  mobileNumber: string;
+  walletDetails: WalletDetail[];
+}
+
+export interface WalletDetail {
+  amount: number;
+  amountAlloted: number;
+  usrId: number;
+  businessEntityType: number;
 }
 
 export interface Transaction {
@@ -25,24 +34,12 @@ export interface Transaction {
   status: number;
 }
 
-export interface WalletDetails {
-  amount: number;
-  amountAlloted: number;
-  userId: number;
-  walletType: number;
-}
+export const baseUrl = "http://tebsdemoserver.westindia.cloudapp.azure.com:170";
 
-const baseUrl = "http://tebsdemoserver.westindia.cloudapp.azure.com:170";
-
-export const getCustomerWallet = async (customerId: string) => {
+export const getCustomerWallet = async (phoneNumber: string) => {
   //axios get call with params
   const response = await axios.get<CustomerWalletResType>(
-    `${baseUrl}/api/ALDS/alds/getCustomerWallet`,
-    {
-      params: {
-        customerId,
-      },
-    }
+    `https://pulzconnectindiapre.tebs.co.in/api/v1/SWAP/wallet/${phoneNumber}`
   );
   return response.data;
 };

@@ -5,11 +5,15 @@ import { Dimensions } from "react-native";
 import LottieView from "lottie-react-native";
 import AnimatedLottieView from "lottie-react-native";
 import { FontSize, Gray, Inter } from "../../../components/styling/constants";
+import axiosApiInstance from "../../../context/axios";
+import { baseUrl } from "../../../common/api";
+import { useRouter } from "expo-router";
 
 const qrCode = () => {
   const [hasPermission, setHasPermission] = useState<boolean | null>(null);
   const [scanned, setScanned] = useState(false);
   const animation = useRef<AnimatedLottieView>(null);
+  const router = useRouter();
 
   useEffect(() => {
     const getBarCodeScannerPermissions = async () => {
@@ -22,7 +26,13 @@ const qrCode = () => {
 
   const handleBarCodeScanned: BarCodeScannedCallback = ({ type, data }) => {
     setScanned(true);
-    alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    axiosApiInstance
+      .post<number>(`${baseUrl}/api/ALDS/alds/scan`, {
+        dispensorId: data,
+      })
+      .then((res) => {
+        router.push("fuel");
+      });
   };
 
   if (hasPermission === null) {
@@ -77,10 +87,6 @@ const qrCode = () => {
           </Text>
         </View>
       </View>
-
-      {scanned && (
-        <Button title={"Tap to Scan Again"} onPress={() => setScanned(false)} />
-      )}
     </View>
   );
 };

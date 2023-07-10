@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuth } from "./auth";
+import * as SecureStore from "expo-secure-store";
 
 const axiosApiInstance = axios.create();
 
@@ -9,8 +10,11 @@ const tokenRefreshUrl =
 // Request interceptor for API calls
 axiosApiInstance.interceptors.request.use(
   async (config) => {
-    const auth = useAuth();
-    config.headers.Authorization = `Bearer ${auth?.user?.accessToken}`;
+    const userd = await SecureStore.getItemAsync("user");
+    if (!userd) return config;
+    const access_token = JSON.parse(userd)?.accessToken;
+    if (!access_token) return config;
+    config.headers.Authorization = `Bearer ${access_token}`;
     return config;
   },
   (error) => {
@@ -19,14 +23,22 @@ axiosApiInstance.interceptors.request.use(
 );
 
 const refreshAccessToken = async () => {
-  const auth = useAuth();
-  if (!auth?.user) return;
-  const response = await axios.post(tokenRefreshUrl, {
-    token: auth?.user?.refreshToken,
-  });
-  const { accessToken, refreshToken } = response.data;
+  const userd = await SecureStore.getItemAsync("user");
+  if (!userd) return;
 
-  auth?.signIn({ ...auth?.user, accessToken, refreshToken });
+  const user = JSON.parse(userd);
+  const refresh_token = user?.refreshToken;
+  if (!refresh_token) return;
+
+  const response = await axios.post(tokenRefreshUrl, {
+    token: refresh_token,
+  });
+
+  const { accessToken, refreshToken } = response.data;
+  await SecureStore.setItemAsync(
+    "user",
+    JSON.stringify({ ...user, accessToken, refreshToken })
+  );
   return accessToken;
 };
 

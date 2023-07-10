@@ -10,7 +10,7 @@ import {
   Red,
   White,
 } from "../styling/constants";
-
+// import { MaterialCommunityIcons } from "@expo/vector-icons";
 const tabs: {
   name: string;
   link: string;
@@ -28,14 +28,14 @@ const tabs: {
     icon: "bars",
   },
   {
-    name: "My Card",
+    name: "Scan QR",
     link: "qrCode",
-    icon: "creditcard",
+    icon: "qrcode",
     styled: true,
   },
   {
-    name: "Offers",
-    link: "offers",
+    name: "My Card",
+    link: "myCard",
     icon: "tagso",
   },
   {
@@ -110,7 +110,7 @@ const BottomTab = () => {
                     color: White,
                   }}
                 >
-                  Total Plus
+                  Scan QR
                 </Text>
               </View>
             </TouchableOpacity>
@@ -139,6 +139,10 @@ const BottomTab = () => {
                 borderTopWidth: 1,
               }}
             >
+              {/* <MaterialCommunityIcons
+                name="qrcode-scan"
+                color={active ? "red" : "#9ca3af"}
+              /> */}
               <TabIcon name={tab.icon} color={active ? "red" : "#9ca3af"} />
               <Text
                 // className={`${active ? "text-red-600" : "text-gray-400"}`}

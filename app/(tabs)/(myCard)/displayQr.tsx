@@ -9,16 +9,16 @@ import {
   Inter,
   Yellow,
 } from "../../../components/styling/constants";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { useAuth } from "../../../context/auth";
-import ThemeButton from "../../../components/buttons/ThemeButton";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
-import { Link } from "expo-router";
-const fuel = () => {
+import { Link, useRouter } from "expo-router";
+import QRCode from "react-qr-code";
+
+const displayQr = () => {
   const [wallet, setWallet] = useState<CustomerWalletResType | null>(null);
 
   const auth = useAuth();
-
+  const router = useRouter();
   useEffect(() => {
     auth?.user?.mobile &&
       !wallet &&
@@ -26,6 +26,12 @@ const fuel = () => {
         setWallet(res);
       });
   }, [auth?.user]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      router.push("success");
+    }, 5000);
+  }, []);
 
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
@@ -62,76 +68,32 @@ const fuel = () => {
       <View style={styles.cardContainer}>
         <View
           style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Image
-            source={require("../../../assets/gift-image.png")}
-            style={{
-              width: 100,
-              height: 100,
-              top: -70,
-
-              marginHorizontal: "auto",
-              position: "absolute",
-            }}
-          />
-        </View>
-        <View
-          style={{
             // marginHorizontal: 30,
-            marginTop: 50,
+            marginTop: 20,
           }}
         >
-          <View>
-            <Text style={styles.pointsDescription}>Total</Text>
-            <Text style={styles.pointsTitle}>
-              {wallet?.walletDetails[0].amount}
+          <View
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text style={styles.pointsDescription}>
+              Show this QR code to Marshall
             </Text>
-            <Text style={styles.pointsDescription}>points remaining</Text>
+            <QRCode value="hey" />
           </View>
-          <View>
-            <View
-              style={{
-                backgroundColor: "#F9FAFB",
-                padding: 16,
-                borderRadius: 8,
-                width: windowWidth / 1.5,
-                marginTop: 16,
-                ...FlexRow,
-                alignItems: "center",
-              }}
-            >
-              <TextInput
-                style={{
-                  fontSize: 18,
-                  lineHeight: 40,
-                  fontFamily: Inter.extraBold,
-                  color: "#4B5563",
-                  flexGrow: 1,
-                }}
-                placeholder="Enter points to redeem"
-                keyboardType="phone-pad"
-                textContentType="telephoneNumber"
-                maxLength={10}
-                placeholderTextColor={"#9CA3AF"}
-                // onChange={(e) => {
-                //   setPhoneNumber(e.nativeEvent.text);
-                // }}
-              />
-            </View>
-          </View>
+
           <View
             style={{
               marginVertical: 20,
               width: windowWidth / 1.5,
             }}
           >
-            <Link href={"displayQr"} asChild>
-              <ThemeButton>Redeem now</ThemeButton>
-            </Link>
+            <Text style={{ textAlign: "center" }}>
+              Waiting for confirmation...
+            </Text>
           </View>
           {/* <View>
             <Image
@@ -145,7 +107,7 @@ const fuel = () => {
   );
 };
 
-export default fuel;
+export default displayQr;
 
 const styles = StyleSheet.create({
   username: {
@@ -180,6 +142,7 @@ const styles = StyleSheet.create({
     ...FontSize.lg,
     fontFamily: Inter.bold,
     textAlign: "center",
+    marginVertical: 20,
     color: Gray[600],
   },
   cardContainer: {

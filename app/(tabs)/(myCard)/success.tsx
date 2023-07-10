@@ -66,7 +66,7 @@ const success = () => {
               color: Green[600],
             }}
           >
-            Redeem success
+            Redemption success
           </Text>
           <Text
             style={{
