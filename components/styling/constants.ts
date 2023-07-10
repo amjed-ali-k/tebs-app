@@ -1,4 +1,3 @@
-import { Style } from "nativewind/dist/transform-css/types";
 import { FlexStyle, StyleProp } from "react-native";
 
 // Tailwind colors to variables
@@ -177,7 +176,7 @@ export const FontSize = {
   },
   lg: {
     fontSize: 16,
-    lineHeight: 22,
+    lineHeight: 20,
   },
   xl: {
     fontSize: 18,

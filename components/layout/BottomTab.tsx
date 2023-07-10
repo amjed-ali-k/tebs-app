@@ -29,7 +29,7 @@ const tabs: {
   },
   {
     name: "My Card",
-    link: "myCard",
+    link: "qrCode",
     icon: "creditcard",
     styled: true,
   },
