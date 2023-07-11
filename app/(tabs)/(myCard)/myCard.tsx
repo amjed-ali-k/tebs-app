@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import { MainTitle } from "../../../components/text/Title";
 import { Image } from "expo-image";
@@ -7,7 +7,6 @@ import Svg, { Defs, G, Mask, Path, Rect } from "react-native-svg";
 import { AntDesign } from "@expo/vector-icons";
 import ShadedTitle from "../../../components/text/ShadedTitle";
 import { PNGIcon, PngIconType } from "../../../components/custom/Icons";
-import axiosApiInstance from "../../../context/axios";
 import axios from "axios";
 
 export type CouponType = {
@@ -60,52 +59,15 @@ const RewardItem = ({
   code?: string;
 }) => {
   return (
-    <View
-      // className="flex border-b border-gray-200 py-2 flex-row items-center justify-between w-full"
-      style={{
-        ...FlexRow,
-        borderBottomColor: Gray[200],
-        paddingVertical: 8,
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderBottomWidth: 1,
-        width: "100%",
-      }}
-    >
-      <PNGIcon
-        icon={icon}
-        // className="w-6 h-6 m-3"
-        style={{
-          width: 32,
-          height: 32,
-          margin: 12,
-        }}
-      />
-
-      <View
-        // className="mx-2 grow"
-        style={{
-          flexGrow: 1,
-          marginHorizontal: 8,
-        }}
-      >
+    <View style={styles.rewardContainer}>
+      <PNGIcon icon={icon} style={styles.iconStyle} />
+      <View style={styles.rewardTextContainer}>
         <View>
           <View style={{ flexDirection: "row" }}>
-            <Text
-              style={{
-                flex: 1,
-                flexWrap: "wrap",
-                fontFamily: Inter.bold,
-                ...FontSize.lg,
-              }}
-              // className="font-interBold text-lg"
-            >
-              {title}
-            </Text>
+            <Text style={styles.rewardTitle}>{title}</Text>
           </View>
         </View>
         <Text
-          // className="text-gray-500"
           style={{
             color: Gray[500],
           }}
@@ -116,21 +78,10 @@ const RewardItem = ({
       <TouchableOpacity
         onPress={() => onSelect && onSelect(id)}
         activeOpacity={0.8}
-        // className={`border shrink-0 items-center rounded-md shadow-sm flex w-32 px-2 py-1 flex-row border-indigo-900 ${selected ? "bg-indigo-900" : "bg-white"
-        //   }`}
-
         style={{
-          borderWidth: 1,
-          flexShrink: 0,
-          alignItems: "center",
-          borderRadius: 6,
-          ...Shadow.sm,
+          ...styles.selectButton,
           backgroundColor: selected ? Indigo[900] : White,
           borderColor: selected ? Indigo[900] : Gray[200],
-          paddingVertical: 4,
-          paddingHorizontal: 8,
-          width: 105,
-          ...FlexRow,
         }}
       >
         {selected ? (
@@ -209,36 +160,6 @@ const rewards: {
   },
 ];
 
-const coupons: {
-  id: string;
-  title: string;
-  validity: string;
-  icon: PngIconType;
-  code: string;
-}[] = [
-  {
-    id: "1",
-    title: "50% off upto Rs.149",
-    validity: "1/12/2023",
-    icon: "coupon",
-    code: "TOTAL50",
-  },
-  {
-    id: "2",
-    title: "Rs 25 off on every Rs 100 fill of Total Petrol",
-    validity: "1/12/2023",
-    icon: "coupon",
-    code: "TOTAL25",
-  },
-  {
-    id: "3",
-    title: "Get Rs 10 off on Rs 300 fill of Total Petrol",
-    validity: "1/12/2023",
-    icon: "coupon",
-    code: "TOTAL10",
-  },
-];
-
 export default function MyCard() {
   const [selectedRewards, setSelectedRewards] = React.useState<string[]>([]);
 
@@ -257,32 +178,14 @@ export default function MyCard() {
   return (
     <View>
       <View
-        // className="p-4"
         style={{
           padding: 16,
         }}
       >
         <MainTitle>Your Total+ Card</MainTitle>
-        <View
-          // className="overflow-hidden border flex flex-col border-amber-200 rounded-lg relative"
-          style={{
-            overflow: "hidden",
-            borderWidth: 1,
-            borderColor: Orange[200],
-            borderRadius: 8,
-            position: "relative",
-            ...FlexColumn,
-          }}
-        >
+        <View style={styles.cardContainer}>
           <Svg
-            // className="absolute inset-0 w-full"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-            }}
+            style={styles.cardBg}
             preserveAspectRatio="none"
             width="100%"
             height="100%"
@@ -305,135 +208,52 @@ export default function MyCard() {
               </Mask>
             </Defs>
           </Svg>
-          <View
-            // className="p-7 grow pb-2 flex flex-row  justify-between"
-            style={{
-              padding: 28,
-              paddingBottom: 8,
-              ...FlexRow,
-              justifyContent: "space-between",
-              flexGrow: 1,
-            }}
-          >
+          <View style={styles.cardInner}>
             <Image
               source={require("./../../../assets/icons/help.png")}
-              // className="w-8 h-8"
-              style={{
-                width: 32,
-                height: 32,
-              }}
+              style={styles.cardIcon}
             />
-            <View
-              // className="bg-white rounded-md p-5"
-              style={{
-                backgroundColor: White,
-                borderRadius: 6,
-                padding: 20,
-              }}
-            >
+            <View style={styles.qrContainer}>
               <QRCode value="http://awesome.link.qr" />
             </View>
             <Image
               source={require("./../../../assets/icons/help.png")}
-              // className="w-8 h-8"
-              style={{
-                width: 32,
-                height: 32,
-              }}
+              style={styles.cardIcon}
             />
           </View>
 
           <View
-            // className="flex flex-row justify-between"
             style={{
               ...FlexRow,
               justifyContent: "space-between",
             }}
           >
             <View
-              // className="p-4"
               style={{
                 padding: 16,
               }}
             >
-              <Text
-                // className="text-center font-interExtraBold text-3xl"
-                style={{
-                  fontFamily: Inter.extraBold,
-                  ...FontSize["3xl"],
-                  textAlign: "center",
-                }}
-              >
-                6000
-              </Text>
-              <Text
-                // className="font-interBold text-gray-900/50"
-                style={{
-                  fontFamily: Inter.bold,
-                  color: Gray[900],
-                  opacity: 0.5,
-                }}
-              >
-                Alloted points
-              </Text>
+              <Text style={styles.pointsText}>6000</Text>
+              <Text style={styles.pointsDesc}>Alloted points</Text>
             </View>
             <View
-              // className="p-4"
               style={{
                 padding: 16,
               }}
             >
-              <Text
-                // className="text-center font-interExtraBold text-3xl"
-                style={{
-                  fontFamily: Inter.extraBold,
-                  textAlign: "center",
-                  ...FontSize["3xl"],
-                }}
-              >
-                1500
-              </Text>
-              <Text
-                // className="font-interBold text-gray-900/50"
-                style={{
-                  fontFamily: Inter.bold,
-                  color: Gray[900],
-                  opacity: 0.5,
-                }}
-              >
-                Active points
-              </Text>
+              <Text style={styles.pointsText}>1500</Text>
+              <Text style={styles.pointsDesc}>Active points</Text>
             </View>
             <View
-              // className="p-4"
               style={{
                 padding: 16,
               }}
             >
-              <Text
-                // className="text-center font-interExtraBold text-3xl"
-                style={{
-                  fontFamily: Inter.extraBold,
-                  textAlign: "center",
-                  ...FontSize["3xl"],
-                }}
-              >
-                4000
-              </Text>
-              <Text
-                // className="font-interBold text-gray-900/50"
-                style={{
-                  fontFamily: Inter.bold,
-                  color: Gray[900],
-                  opacity: 0.5,
-                }}
-              >
-                Used points
-              </Text>
+              <Text style={styles.pointsText}>4000</Text>
+              <Text style={styles.pointsDesc}>Used points</Text>
             </View>
           </View>
           <View
-            // className="relative rounded-lg overflow-hidden"
             style={{
               position: "relative",
               borderRadius: 8,
@@ -441,7 +261,6 @@ export default function MyCard() {
             }}
           >
             <View
-              // className="absolute bg-white opacity-40 inset-0 w-full h-full"
               style={{
                 position: "absolute",
                 backgroundColor: White,
@@ -453,7 +272,6 @@ export default function MyCard() {
               }}
             ></View>
             <View
-              // className="p-3 flex flex-row justify-between items-center"
               style={{
                 padding: 12,
                 ...FlexRow,
@@ -463,7 +281,6 @@ export default function MyCard() {
             >
               <View>
                 <Text
-                  // className="font-interBold text-lg"
                   style={{
                     fontFamily: Inter.bold,
                     ...FontSize.lg,
@@ -472,7 +289,6 @@ export default function MyCard() {
                   Selected rewards:
                 </Text>
                 <Text
-                  // className="text-gray-700"
                   style={{
                     color: Gray[700],
                   }}
@@ -481,7 +297,6 @@ export default function MyCard() {
                 </Text>
               </View>
               <Text
-                // className="font-interExtraBold text-4xl text-gray-700"
                 style={{
                   fontFamily: Inter.extraBold,
                   ...FontSize["4xl"],
@@ -499,7 +314,6 @@ export default function MyCard() {
           <>
             <ShadedTitle title="Your Coupons" />
             <View
-              // className="p-4"
               style={{
                 padding: 16,
               }}
@@ -541,21 +355,9 @@ export default function MyCard() {
           ))}
         </View>
         <ShadedTitle title="Gift catalogue" />
-        <View
-          // className="flex border-b border-gray-200 py-2 flex-row items-center justify-between w-full"
-          style={{
-            ...FlexRow,
-            borderBottomColor: Gray[200],
-            paddingVertical: 8,
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderBottomWidth: 1,
-            width: "100%",
-          }}
-        >
+        <View style={styles.giftContainer}>
           <PNGIcon
             icon={"redemption"}
-            // className="w-6 h-6 m-6"
             style={{
               width: 24,
               height: 24,
@@ -564,7 +366,6 @@ export default function MyCard() {
           />
 
           <View
-            // className="mx-2 grow"
             style={{
               flexGrow: 1,
               marginHorizontal: 8,
@@ -572,15 +373,7 @@ export default function MyCard() {
           >
             <View>
               <View style={{ flexDirection: "row" }}>
-                <Text
-                  style={{
-                    flex: 1,
-                    flexWrap: "wrap",
-                    fontFamily: Inter.bold,
-                    ...FontSize.sm,
-                  }}
-                  // className="font-interMedium text-sm"
-                >
+                <Text style={styles.giftDesc}>
                   Enjoy your redeemed items. Keep using your IOCL Plus card to
                   add more offers along the way.
                 </Text>
@@ -592,3 +385,97 @@ export default function MyCard() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  cardContainer: {
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: Orange[200],
+    borderRadius: 8,
+    position: "relative",
+    ...FlexColumn,
+  },
+  cardBg: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+  },
+  cardInner: {
+    padding: 28,
+    paddingBottom: 8,
+    ...FlexRow,
+    justifyContent: "space-between",
+    flexGrow: 1,
+  },
+  pointsDesc: {
+    fontFamily: Inter.bold,
+    color: Gray[900],
+    opacity: 0.5,
+  },
+  pointsText: {
+    fontFamily: Inter.extraBold,
+    textAlign: "center",
+    ...FontSize["3xl"],
+  },
+  selectButton: {
+    borderWidth: 1,
+    flexShrink: 0,
+    alignItems: "center",
+    borderRadius: 6,
+    ...Shadow.sm,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
+    width: 105,
+    ...FlexRow,
+  },
+  rewardContainer: {
+    ...FlexRow,
+    borderBottomColor: Gray[200],
+    paddingVertical: 8,
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottomWidth: 1,
+    width: "100%",
+  },
+  rewardTitle: {
+    flex: 1,
+    flexWrap: "wrap",
+    fontFamily: Inter.bold,
+    ...FontSize.lg,
+  },
+  iconStyle: {
+    width: 32,
+    height: 32,
+    margin: 12,
+  },
+  rewardTextContainer: {
+    flexGrow: 1,
+    marginHorizontal: 8,
+  },
+  qrContainer: {
+    backgroundColor: White,
+    borderRadius: 6,
+    padding: 20,
+  },
+  cardIcon: {
+    width: 32,
+    height: 32,
+  },
+  giftContainer: {
+    ...FlexRow,
+    borderBottomColor: Gray[200],
+    paddingVertical: 8,
+    justifyContent: "space-between",
+    alignItems: "center",
+    borderBottomWidth: 1,
+    width: "100%",
+  },
+  giftDesc: {
+    flex: 1,
+    flexWrap: "wrap",
+    fontFamily: Inter.bold,
+    ...FontSize.sm,
+  },
+});

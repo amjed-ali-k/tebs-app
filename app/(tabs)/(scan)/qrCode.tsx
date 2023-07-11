@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 import { BarCodeScannedCallback, BarCodeScanner } from "expo-barcode-scanner";
 import { Dimensions } from "react-native";
 import LottieView from "lottie-react-native";
@@ -80,14 +80,7 @@ const qrCode = () => {
           />
         </View>
         <View>
-          <Text
-            style={{
-              color: Gray[100],
-              ...FontSize["2xl"],
-              fontFamily: Inter.bold,
-              textAlign: "center",
-            }}
-          >
+          <Text style={styles.qrSubtitle}>
             {scanned ? "QR Dectected. Processing..." : "Searching for QR"}
           </Text>
         </View>
@@ -109,7 +102,12 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: "100%",
-
     flexGrow: 1,
+  },
+  qrSubtitle: {
+    color: Gray[100],
+    ...FontSize["2xl"],
+    fontFamily: Inter.bold,
+    textAlign: "center",
   },
 });

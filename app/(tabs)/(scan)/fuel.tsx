@@ -19,7 +19,6 @@ const fuel = () => {
   const wallet = useWallet();
   const auth = useAuth();
   const { dispensorId } = useSearchParams<{ dispensorId?: string }>();
-  // console.log(auth?.user?.accessToken);
   const router = useRouter();
   const [amount, setAmount] = useState<string>("0");
 

@@ -19,35 +19,15 @@ const success = () => {
   const animation = useRef<AnimatedLottieView>(null);
   const txn = useSearchParams<TxnType>();
   return (
-    <View
-      style={{
-        display: "flex",
-        flex: 1,
-      }}
-    >
+    <View style={styles.container}>
       <ExpoStatusBar
         animated
         networkActivityIndicatorVisible
         backgroundColor="#fff"
         style="auto"
       />
-      <View
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          width: "100%",
-          flexDirection: "row",
-          flexGrow: 1,
-          marginTop: 30,
-        }}
-      >
-        <View
-          style={{
-            display: "flex",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
+      <View style={styles.animatedContainer}>
+        <View style={styles.centerCol}>
           <LottieView
             ref={animation}
             autoPlay
@@ -56,78 +36,24 @@ const success = () => {
             onLayout={() => {
               animation.current?.play();
             }}
-            style={{
-              width: 70,
-              height: 70,
-            }}
-            // Find more Lottie files at https://lottiefiles.com/featured
+            style={styles.animation}
             source={require("./../../../assets/animations/check.json")}
           />
-          <Text
-            style={{
-              ...FontSize.lg,
-              fontFamily: Inter.extraBold,
-              color: Green[600],
-            }}
-          >
-            Redemption success
-          </Text>
-          <Text
-            style={{
-              ...FontSize["4xl"],
-              marginVertical: 10,
-              fontFamily: Inter.extraBold,
-              color: Gray[800],
-            }}
-          >
+          <Text style={styles.successMessage}>Redemption success</Text>
+          <Text style={styles.pointsText}>
             {txn.customerRedeemedAmount || "400"} Points
           </Text>
         </View>
       </View>
-      <View
-        style={{
-          borderWidth: 1,
-          borderRadius: 10,
-          borderColor: Gray[400],
-          margin: 20,
-          padding: 20,
-        }}
-      >
-        <Text
-          style={{
-            ...FontSize["lg"],
-            textAlign: "center",
-            marginVertical: 10,
-            fontFamily: Inter.extraBold,
-            color: Gray[800],
-          }}
-        >
+      <View style={styles.firstCardContainer}>
+        <Text style={styles.bigTitle}>
           {txn.aldsStationName || "Total Gas Fuel Station"}
         </Text>
         <Detail title="ALDS ID" value={txn.aldsStationId || "FIE82984"} />
         <Detail title="Status" value="Success" />
       </View>
-      <View
-        style={{
-          borderWidth: 1,
-          borderRadius: 10,
-          borderColor: Gray[400],
-          marginHorizontal: 20,
-          marginVertical: 10,
-          padding: 20,
-        }}
-      >
-        <Text
-          style={{
-            ...FontSize["lg"],
-
-            marginVertical: 10,
-            fontFamily: Inter.extraBold,
-            color: Gray[800],
-          }}
-        >
-          Transaction Details
-        </Text>
+      <View style={styles.detailsCardContainer}>
+        <Text style={styles.detailsCardTitle}>Transaction Details</Text>
         <Detail title="Dispencer Id" value={txn.dispensorId || "DKI299KLL"} />
         <Detail title="Bill amount" value={txn.billAmount || "400"} />
         <Detail
@@ -160,36 +86,89 @@ const success = () => {
 
 export default success;
 
-const styles = StyleSheet.create({});
-
 const Detail = ({ title, value }: { title: string; value: string }) => {
   return (
-    <View
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
-      <Text
-        style={{
-          ...FontSize.base,
-          //   fontFamily: Inter.bold,
-          color: Gray[600],
-        }}
-      >
-        {title}
-      </Text>
-      <Text
-        style={{
-          ...FontSize.base,
-          fontFamily: Inter.bold,
-          color: Gray[800],
-        }}
-      >
-        {value}
-      </Text>
+    <View style={styles.detailContainer}>
+      <Text style={styles.detailLeft}>{title}</Text>
+      <Text style={styles.detailRight}>{value}</Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  detailContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  detailLeft: {
+    ...FontSize.base,
+    color: Gray[600],
+  },
+  detailRight: {
+    ...FontSize.base,
+    fontFamily: Inter.bold,
+    color: Gray[800],
+  },
+  centerCol: {
+    display: "flex",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  bigTitle: {
+    ...FontSize["lg"],
+    textAlign: "center",
+    marginVertical: 10,
+    fontFamily: Inter.extraBold,
+    color: Gray[800],
+  },
+  firstCardContainer: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: Gray[400],
+    margin: 20,
+    padding: 20,
+  },
+  pointsText: {
+    ...FontSize["4xl"],
+    marginVertical: 10,
+    fontFamily: Inter.extraBold,
+    color: Gray[800],
+  },
+  successMessage: {
+    ...FontSize.lg,
+    fontFamily: Inter.extraBold,
+    color: Green[600],
+  },
+  animation: {
+    width: 70,
+    height: 70,
+  },
+  animatedContainer: {
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    flexDirection: "row",
+    flexGrow: 1,
+    marginTop: 30,
+  },
+  detailsCardContainer: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: Gray[400],
+    marginHorizontal: 20,
+    marginVertical: 10,
+    padding: 20,
+  },
+  detailsCardTitle: {
+    ...FontSize["lg"],
+    marginVertical: 10,
+    fontFamily: Inter.extraBold,
+    color: Gray[800],
+  },
+  container: {
+    display: "flex",
+    flex: 1,
+  },
+});
