@@ -102,7 +102,7 @@ const success = () => {
             color: Gray[800],
           }}
         >
-          Total Gas Fuel Station
+          {txn.aldsStationName || "Total Gas Fuel Station"}
         </Text>
         <Detail title="ALDS ID" value={txn.aldsStationId || "FIE82984"} />
         <Detail title="Status" value="Success" />
