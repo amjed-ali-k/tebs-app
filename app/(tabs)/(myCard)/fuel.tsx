@@ -149,8 +149,12 @@ const fuel = () => {
           >
             <ThemeButton
               onPress={() => {
-                redeemRewareds(bill?.id, parseInt(amount)).finally(() => {
-                  router.push("displayQr");
+                router.push({
+                  pathname: "displayQr",
+                  params: {
+                    transactionId: bill?.id,
+                    amount: amount,
+                  },
                 });
               }}
             >

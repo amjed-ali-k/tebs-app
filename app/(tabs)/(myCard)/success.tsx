@@ -10,10 +10,14 @@ import {
   Shadow,
 } from "../../../components/styling/constants";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
+import { useSearchParams } from "expo-router";
+import { Transaction } from "../../../common/api";
+
+type TxnType = { [K in keyof Transaction]: string };
 
 const success = () => {
   const animation = useRef<AnimatedLottieView>(null);
-
+  const txn = useSearchParams<TxnType>();
   return (
     <View
       style={{
@@ -76,7 +80,7 @@ const success = () => {
               color: Gray[800],
             }}
           >
-            400 Points
+            {txn.customerRedeemedAmount || "400"} Points
           </Text>
         </View>
       </View>
@@ -100,7 +104,7 @@ const success = () => {
         >
           Total Gas Fuel Station
         </Text>
-        <Detail title="ALDS ID" value="244244223" />
+        <Detail title="ALDS ID" value={txn.aldsStationId || "FIE82984"} />
         <Detail title="Status" value="Success" />
       </View>
       <View
@@ -124,16 +128,31 @@ const success = () => {
         >
           Transaction Details
         </Text>
-        <Detail title="Dispencer Id" value="244244223" />
-        <Detail title="Bill amount" value="233" />
-        <Detail title="Customer Redeemed" value="233" />
-        <Detail title="Marshall Redeemed" value="233" />
-        <Detail title="Total Paid" value="233" />
-        <Detail title="Transaction Code" value="FJDJ3223J2" />
-        <Detail title="Created By" value="QR-r233" />
-        <Detail title="Created At" value="2023-07-10T17:16:20.769Z" />
-        <Detail title="Dispensor ID" value="FKII3299999" />
-        <Detail title="Transaction Code" value="233" />
+        <Detail title="Dispencer Id" value={txn.dispensorId || "DKI299KLL"} />
+        <Detail title="Bill amount" value={txn.billAmount || "400"} />
+        <Detail
+          title="Customer Redeemed"
+          value={txn.customerRedeemedAmount || "400"}
+        />
+        <Detail
+          title="Marshall Redeemed"
+          value={txn.marshallRedeemedAmount || "400"}
+        />
+        <Detail title="Total Paid" value={txn.paidAmount || "400"} />
+        <Detail
+          title="Transaction Code"
+          value={txn.transactionCode || "FJDJ3223J2"}
+        />
+        <Detail title="Created By" value={txn.createdBy || "QR-r400"} />
+        <Detail
+          title="Created At"
+          value={txn.createdAt || "2023-07-10T17:16:20.769Z"}
+        />
+        <Detail title="Dispensor ID" value={txn.dispensorId || "KDLI32442"} />
+        <Detail
+          title="Transaction Code"
+          value={txn.transactionCode || "FJDJ3223J2"}
+        />
       </View>
     </View>
   );

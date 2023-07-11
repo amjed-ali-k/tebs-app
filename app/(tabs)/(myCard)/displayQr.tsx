@@ -1,6 +1,11 @@
 import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { CustomerWalletResType, getCustomerWallet } from "../../../common/api";
+import {
+  CustomerWalletResType,
+  Transaction,
+  getCustomerWallet,
+  redeemRewareds,
+} from "../../../common/api";
 import { Image } from "expo-image";
 import {
   FlexRow,
@@ -11,27 +16,28 @@ import {
 } from "../../../components/styling/constants";
 import { useAuth } from "../../../context/auth";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
-import { Link, useRouter } from "expo-router";
+import { Link, useRouter, useSearchParams } from "expo-router";
 import QRCode from "react-qr-code";
 
 const displayQr = () => {
-  const [wallet, setWallet] = useState<CustomerWalletResType | null>(null);
-
-  const auth = useAuth();
   const router = useRouter();
-  useEffect(() => {
-    auth?.user?.mobile &&
-      !wallet &&
-      getCustomerWallet("9895581334").then((res) => {
-        setWallet(res);
-      });
-  }, [auth?.user]);
+  const { transactionId, amount } = useSearchParams<{
+    transactionId?: string;
+    amount?: string;
+  }>();
+
+  const [txn, setTxn] = useState<Transaction | null>(null);
 
   useEffect(() => {
+    transactionId &&
+      amount &&
+      redeemRewareds(parseInt(transactionId), parseInt(amount)).then((res) => {
+        setTxn(res);
+      });
     setTimeout(() => {
-      router.push("success");
+      router.push({ pathname: "success", params: txn ? txn : undefined });
     }, 5000);
-  }, []);
+  }, [transactionId]);
 
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
@@ -54,6 +60,7 @@ const displayQr = () => {
         backgroundColor="#063855"
         style="auto"
       />
+
       <Image
         source={require("../../../assets/bg-abstact.png")}
         contentFit="cover"
@@ -82,7 +89,7 @@ const displayQr = () => {
             <Text style={styles.pointsDescription}>
               Show this QR code to Marshall
             </Text>
-            <QRCode value="hey" />
+            <QRCode value={txn?.transactionCode || "Test code"} />
           </View>
 
           <View
