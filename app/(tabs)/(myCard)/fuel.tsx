@@ -19,14 +19,7 @@ const fuel = () => {
   const wallet = useWallet();
   const auth = useAuth();
   const { dispensorId } = useSearchParams<{ dispensorId?: string }>();
-
-  useEffect(() => {
-    dispensorId &&
-      generateCustomerBill(dispensorId).then((res) => {
-        setBill(res);
-      });
-  }, [dispensorId]);
-
+  // console.log(auth?.user?.accessToken);
   const router = useRouter();
   const [amount, setAmount] = useState<string>("0");
 

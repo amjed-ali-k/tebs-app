@@ -88,7 +88,7 @@ const qrCode = () => {
               textAlign: "center",
             }}
           >
-            Searching for QR
+            {scanned ? "QR Dectected. Processing..." : "Searching for QR"}
           </Text>
         </View>
       </View>
