@@ -43,3 +43,29 @@ export const getCustomerWallet = async (phoneNumber: string) => {
   );
   return response.data;
 };
+
+export const generateCustomerBill = async (dispensorId: string) => {
+  const response = await axios.get<Transaction>(
+    `${baseUrl}/api/ALDS/alds/customerBill`,
+    {
+      params: {
+        dispensorId,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const redeemRewareds = async (
+  transactionId: number | undefined,
+  amount: number
+) => {
+  const response = await axios.post<Transaction>(
+    `${baseUrl}/api/ALDS/alds/customerRedeem`,
+    {
+      transactionId,
+      amount,
+    }
+  );
+  return response.data;
+};

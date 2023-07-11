@@ -31,7 +31,10 @@ const qrCode = () => {
         dispensorId: data,
       })
       .then((res) => {
-        router.push("fuel");
+        // router.push({pathname: "fuel", params: {dispensorId: data}});
+      })
+      .finally(() => {
+        router.push({ pathname: "fuel", params: { dispensorId: data } });
       });
   };
 

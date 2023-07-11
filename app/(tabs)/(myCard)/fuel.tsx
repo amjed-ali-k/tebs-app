@@ -1,6 +1,12 @@
 import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { CustomerWalletResType, getCustomerWallet } from "../../../common/api";
+import {
+  CustomerWalletResType,
+  Transaction,
+  generateCustomerBill,
+  getCustomerWallet,
+  redeemRewareds,
+} from "../../../common/api";
 import { Image } from "expo-image";
 import {
   FlexRow,
@@ -13,10 +19,10 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { useAuth } from "../../../context/auth";
 import ThemeButton from "../../../components/buttons/ThemeButton";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
-import { Link } from "expo-router";
+import { Link, useRouter, useSearchParams } from "expo-router";
 const fuel = () => {
   const [wallet, setWallet] = useState<CustomerWalletResType | null>(null);
-
+  const [bill, setBill] = useState<Transaction | null>(null);
   const auth = useAuth();
 
   useEffect(() => {
@@ -27,8 +33,20 @@ const fuel = () => {
       });
   }, [auth?.user]);
 
+  const { dispensorId } = useSearchParams<{ dispensorId?: string }>();
+
+  useEffect(() => {
+    dispensorId &&
+      generateCustomerBill(dispensorId).then((res) => {
+        setBill(res);
+      });
+  }, [dispensorId]);
+
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
+  const router = useRouter();
+
+  const [amount, setAmount] = useState<string>("0");
 
   return (
     <View
@@ -117,9 +135,9 @@ const fuel = () => {
                 textContentType="telephoneNumber"
                 maxLength={10}
                 placeholderTextColor={"#9CA3AF"}
-                // onChange={(e) => {
-                //   setPhoneNumber(e.nativeEvent.text);
-                // }}
+                onChange={(e) => {
+                  setAmount(e.nativeEvent.text);
+                }}
               />
             </View>
           </View>
@@ -129,9 +147,15 @@ const fuel = () => {
               width: windowWidth / 1.5,
             }}
           >
-            <Link href={"displayQr"} asChild>
-              <ThemeButton>Redeem now</ThemeButton>
-            </Link>
+            <ThemeButton
+              onPress={() => {
+                redeemRewareds(bill?.id, parseInt(amount)).finally(() => {
+                  router.push("displayQr");
+                });
+              }}
+            >
+              Redeem now
+            </ThemeButton>
           </View>
           {/* <View>
             <Image
