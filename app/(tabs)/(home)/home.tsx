@@ -18,18 +18,10 @@ import {
 } from "../../../components/styling/constants";
 import { CustomerWalletResType, getCustomerWallet } from "../../../common/api";
 import { useAuth } from "../../../context/auth";
+import { useWallet } from "../../../common/hooks";
 
 const HomeScreen = () => {
-  const auth = useAuth();
-  const [wallet, setWallet] = useState<CustomerWalletResType | null>(null);
-
-  useEffect(() => {
-    auth?.user?.mobile &&
-      !wallet &&
-      getCustomerWallet("9895581334").then((res) => {
-        setWallet(res);
-      });
-  }, [auth?.user]);
+  const wallet = useWallet();
 
   return (
     <View
@@ -114,7 +106,10 @@ const HomeScreen = () => {
               color: Red[600],
             }}
           >
-            {wallet?.walletDetails[0].amount} Points
+            {wallet && wallet.walletDetails && wallet?.walletDetails?.length > 0
+              ? wallet?.walletDetails[0].amount
+              : 0}{" "}
+            Points
           </Text>
           <Text
             //   className="font-bold"

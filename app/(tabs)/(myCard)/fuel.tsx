@@ -19,19 +19,10 @@ import { useAuth } from "../../../context/auth";
 import ThemeButton from "../../../components/buttons/ThemeButton";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import { Link, useRouter, useSearchParams } from "expo-router";
+import { useWallet } from "../../../common/hooks";
 const fuel = () => {
   const [bill, setBill] = useState<Transaction | null>(null);
-
-  const auth = useAuth();
-  const [wallet, setWallet] = useState<CustomerWalletResType | null>(null);
-
-  useEffect(() => {
-    auth?.user?.mobile &&
-      !wallet &&
-      getCustomerWallet(auth.user.mobile).then((res) => {
-        setWallet(res);
-      });
-  }, [auth?.user]);
+  const wallet = useWallet();
 
   const { dispensorId } = useSearchParams<{ dispensorId?: string }>();
 
@@ -106,7 +97,9 @@ const fuel = () => {
           <View>
             <Text style={styles.pointsDescription}>Total</Text>
             <Text style={styles.pointsTitle}>
-              {wallet && wallet?.walletDetails?.length > 0
+              {wallet &&
+              wallet.walletDetails &&
+              wallet?.walletDetails?.length > 0
                 ? wallet?.walletDetails[0].amount
                 : 0}
             </Text>

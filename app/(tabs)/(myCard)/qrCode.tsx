@@ -34,7 +34,10 @@ const qrCode = () => {
         // router.push({pathname: "fuel", params: {dispensorId: data}});
       })
       .finally(() => {
-        router.push({ pathname: "fuel", params: { dispensorId: data } });
+        router.push({
+          pathname: "fuel",
+          params: { dispensorId: encodeURIComponent(data) },
+        });
       });
   };
 
@@ -73,7 +76,6 @@ const qrCode = () => {
               height: windowWidth,
               //   backgroundColor: "#eee",
             }}
-            // Find more Lottie files at https://lottiefiles.com/featured
             source={require("./../../../assets/animations/qr-scan-animation.json")}
           />
         </View>

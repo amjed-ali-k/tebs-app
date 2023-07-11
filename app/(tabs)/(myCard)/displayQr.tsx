@@ -1,11 +1,6 @@
-import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
-import {
-  CustomerWalletResType,
-  Transaction,
-  getCustomerWallet,
-  redeemRewareds,
-} from "../../../common/api";
+import { Transaction, redeemRewareds } from "../../../common/api";
 import { Image } from "expo-image";
 import {
   FlexRow,
@@ -14,7 +9,6 @@ import {
   Inter,
   Yellow,
 } from "../../../components/styling/constants";
-import { useAuth } from "../../../context/auth";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import { Link, useRouter, useSearchParams } from "expo-router";
 import QRCode from "react-qr-code";
