@@ -1,5 +1,5 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import SmallTitle from "../../../components/layout/SmallTitle";
@@ -16,8 +16,7 @@ import {
   Shadow,
   White,
 } from "../../../components/styling/constants";
-import { CustomerWalletResType, getCustomerWallet } from "../../../common/api";
-import { useAuth } from "../../../context/auth";
+
 import { useWallet } from "../../../common/hooks";
 
 const HomeScreen = () => {

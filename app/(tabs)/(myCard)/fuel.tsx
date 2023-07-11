@@ -15,11 +15,11 @@ import {
   Inter,
   Yellow,
 } from "../../../components/styling/constants";
-import { useAuth } from "../../../context/auth";
 import ThemeButton from "../../../components/buttons/ThemeButton";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
-import { Link, useRouter, useSearchParams } from "expo-router";
+import { useRouter, useSearchParams } from "expo-router";
 import { useWallet } from "../../../common/hooks";
+
 const fuel = () => {
   const [bill, setBill] = useState<Transaction | null>(null);
   const wallet = useWallet();
@@ -37,7 +37,6 @@ const fuel = () => {
   const windowWidth = Dimensions.get("window").width;
 
   const router = useRouter();
-
   const [amount, setAmount] = useState<string>("0");
 
   return (
