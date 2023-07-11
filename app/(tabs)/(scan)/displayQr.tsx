@@ -27,11 +27,16 @@ const displayQr = () => {
       amount &&
       redeemRewareds(parseInt(transactionId), parseInt(amount)).then((res) => {
         setTxn(res);
+        console.log("Reward redeemed");
       });
-    setTimeout(() => {
-      router.push({ pathname: "success", params: txn ? txn : undefined });
-    }, 5000);
   }, [transactionId]);
+
+  useEffect(() => {
+    txn &&
+      setTimeout(() => {
+        router.push({ pathname: "success", params: txn });
+      }, 20000);
+  }, [txn]);
 
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
@@ -49,7 +54,6 @@ const displayQr = () => {
         backgroundColor="#063855"
         style="auto"
       />
-
       <Image
         source={require("../../../assets/bg-abstact.png")}
         contentFit="cover"
@@ -65,7 +69,12 @@ const displayQr = () => {
             <Text style={styles.pointsDescription}>
               Show this QR code to Marshall
             </Text>
-            <QRCode value={txn?.transactionCode || "Test code"} />
+            <QRCode
+              value={
+                "http://tebsdemoserver.westindia.cloudapp.azure.com:280/aldsmarshall/" +
+                  txn?.userId.toString() || "Test code"
+              }
+            />
           </View>
 
           <View

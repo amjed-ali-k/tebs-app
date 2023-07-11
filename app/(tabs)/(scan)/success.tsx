@@ -18,6 +18,7 @@ type TxnType = { [K in keyof Transaction]: string };
 const success = () => {
   const animation = useRef<AnimatedLottieView>(null);
   const txn = useSearchParams<TxnType>();
+  console.log(txn);
   return (
     <View style={styles.container}>
       <ExpoStatusBar

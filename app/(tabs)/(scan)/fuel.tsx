@@ -62,12 +62,7 @@ const fuel = () => {
           </View>
           <View>
             <Text style={styles.pointsNumber}>
-              {wallet &&
-              wallet.walletDetails &&
-              wallet?.walletDetails?.length > 0
-                ? wallet?.walletDetails[0].amount
-                : 0}{" "}
-              pts
+              {wallet && wallet.totAmount ? wallet.totAmount : 0} pts
             </Text>
             <Text style={styles.pointsBottomText}>
               can be redeemed right now

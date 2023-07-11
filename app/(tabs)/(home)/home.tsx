@@ -105,10 +105,7 @@ const HomeScreen = () => {
               color: Red[600],
             }}
           >
-            {wallet && wallet.walletDetails && wallet?.walletDetails?.length > 0
-              ? wallet?.walletDetails[0].amount
-              : 0}{" "}
-            Points
+            {wallet && wallet.totAmount ? wallet.totAmount : 0} Points
           </Text>
           <Text
             //   className="font-bold"
