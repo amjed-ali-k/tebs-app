@@ -1,5 +1,5 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import SmallTitle from "../../../components/layout/SmallTitle";
@@ -16,8 +16,21 @@ import {
   Shadow,
   White,
 } from "../../../components/styling/constants";
+import { CustomerWalletResType, getCustomerWallet } from "../../../common/api";
+import { useAuth } from "../../../context/auth";
 
 const HomeScreen = () => {
+  const auth = useAuth();
+  const [wallet, setWallet] = useState<CustomerWalletResType | null>(null);
+
+  useEffect(() => {
+    auth?.user?.mobile &&
+      !wallet &&
+      getCustomerWallet("9895581334").then((res) => {
+        setWallet(res);
+      });
+  }, [auth?.user]);
+
   return (
     <View
       //   className="grow px-2"
@@ -27,7 +40,7 @@ const HomeScreen = () => {
         paddingRight: 8,
       }}
     >
-                <StatusBar animated backgroundColor="#ffffff" />
+      <StatusBar animated backgroundColor="#ffffff" />
 
       <View
         //   className="mx-2 my-4"
@@ -101,7 +114,7 @@ const HomeScreen = () => {
               color: Red[600],
             }}
           >
-            1500 Points
+            {wallet?.walletDetails[0].amount} Points
           </Text>
           <Text
             //   className="font-bold"

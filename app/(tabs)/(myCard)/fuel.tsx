@@ -15,20 +15,20 @@ import {
   Inter,
   Yellow,
 } from "../../../components/styling/constants";
-import { FontAwesome5 } from "@expo/vector-icons";
 import { useAuth } from "../../../context/auth";
 import ThemeButton from "../../../components/buttons/ThemeButton";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import { Link, useRouter, useSearchParams } from "expo-router";
 const fuel = () => {
-  const [wallet, setWallet] = useState<CustomerWalletResType | null>(null);
   const [bill, setBill] = useState<Transaction | null>(null);
+
   const auth = useAuth();
+  const [wallet, setWallet] = useState<CustomerWalletResType | null>(null);
 
   useEffect(() => {
     auth?.user?.mobile &&
       !wallet &&
-      getCustomerWallet("9895581334").then((res) => {
+      getCustomerWallet(auth.user.mobile).then((res) => {
         setWallet(res);
       });
   }, [auth?.user]);
@@ -44,6 +44,7 @@ const fuel = () => {
 
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
+
   const router = useRouter();
 
   const [amount, setAmount] = useState<string>("0");
@@ -91,7 +92,6 @@ const fuel = () => {
               width: 100,
               height: 100,
               top: -70,
-
               marginHorizontal: "auto",
               position: "absolute",
             }}
@@ -106,7 +106,9 @@ const fuel = () => {
           <View>
             <Text style={styles.pointsDescription}>Total</Text>
             <Text style={styles.pointsTitle}>
-              {wallet?.walletDetails[0].amount}
+              {wallet && wallet?.walletDetails?.length > 0
+                ? wallet?.walletDetails[0].amount
+                : 0}
             </Text>
             <Text style={styles.pointsDescription}>points remaining</Text>
           </View>
