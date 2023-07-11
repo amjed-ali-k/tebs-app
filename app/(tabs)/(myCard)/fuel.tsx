@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Transaction, generateCustomerBill } from "../../../common/api";
 import { Image } from "expo-image";
@@ -35,8 +35,9 @@ const fuel = () => {
         });
   };
 
+  const windowHeight = Dimensions.get("window").height;
   return (
-    <View style={styles.screenContainer}>
+    <View style={{ ...styles.screenContainer, minHeight: windowHeight }}>
       <ExpoStatusBar
         animated
         networkActivityIndicatorVisible
@@ -201,6 +202,7 @@ const Detail = ({ title, value }: { title: string; value: any }) => {
 
 const styles = StyleSheet.create({
   screenContainer: {
+    flexDirection: "column",
     flexGrow: 1,
     backgroundColor: Gray[100],
     display: "flex",
