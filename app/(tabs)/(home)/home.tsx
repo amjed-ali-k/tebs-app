@@ -18,9 +18,11 @@ import {
 } from "../../../components/styling/constants";
 
 import { useWallet } from "../../../common/hooks";
+import { useAuth } from "../../../context/auth";
 
 const HomeScreen = () => {
   const wallet = useWallet();
+  const auth = useAuth();
 
   return (
     <View
@@ -52,7 +54,7 @@ const HomeScreen = () => {
             marginTop: 12,
           }}
         >
-          Hi Amjed
+          Hi {auth?.user?.name || "User"}
         </Text>
         <Text
           //   className="text-2xl font-interBold"
@@ -107,14 +109,16 @@ const HomeScreen = () => {
           >
             {wallet && wallet.totAmount ? wallet.totAmount : 0} Points
           </Text>
-          <Text
-            //   className="font-bold"
-            style={{
-              fontFamily: Inter.bold,
-            }}
-          >
-            We hope to see you soon
-          </Text>
+          {wallet && (
+            <Text
+              //   className="font-bold"
+              style={{
+                fontFamily: Inter.bold,
+              }}
+            >
+              {wallet.totAmountAlloted} points earned today
+            </Text>
+          )}
           <Text
             //   className="underline my-1 text-gray-500"
             style={{
@@ -170,14 +174,12 @@ const HomeScreen = () => {
       >
         <Image
           source={require("./../../../assets/coin.png")}
-          //   className="w-8 h-8"
           style={{
             width: 32,
             height: 32,
           }}
         />
         <View
-          //   className="flex flex-row mx-4"
           style={{
             ...FlexRow,
             marginLeft: 16,
@@ -185,13 +187,11 @@ const HomeScreen = () => {
           }}
         >
           <Text
-            // className="font-interBold mr-1 text-xl"
             style={{ fontFamily: Inter.bold, ...FontSize.xl, marginRight: 4 }}
           >
             Refer a friend
           </Text>
           <Text
-            //   className="font-interBold text-xl text-red-600"
             style={{ fontFamily: Inter.bold, ...FontSize.xl, color: Red[600] }}
           >
             +250 points
@@ -202,7 +202,6 @@ const HomeScreen = () => {
 
       <FlatList
         horizontal
-        //   className="grow-0 h-36"
         style={{
           flexGrow: 0,
           height: 144,
@@ -222,7 +221,6 @@ const HomeScreen = () => {
         renderItem={({ item }) => (
           <TouchableOpacity
             activeOpacity={0.7}
-            // className="flex flex-col mx-2 w-48 h-32 shadow-sm bg-gray-50  overflow-hidden rounded-lg"
             style={{
               marginHorizontal: 8,
               width: 192,
@@ -237,7 +235,6 @@ const HomeScreen = () => {
           >
             <Image
               source={item.image}
-              // className="w-24 h-24 absolute -bottom-5 -right-2"
               style={{
                 width: 96,
                 height: 96,
@@ -247,14 +244,12 @@ const HomeScreen = () => {
               }}
             />
             <View
-              // className="flex flex-column m-4"
               style={{
                 ...FlexColumn,
                 margin: 16,
               }}
             >
               <Text
-                // className="font-interBold mr-1 text-xl"
                 style={{
                   fontFamily: Inter.bold,
                   ...FontSize.xl,
@@ -263,10 +258,7 @@ const HomeScreen = () => {
               >
                 {item.title}
               </Text>
-              <Text
-                // className="font-interBold text-xl"
-                style={{ fontFamily: Inter.bold, ...FontSize.xl }}
-              >
+              <Text style={{ fontFamily: Inter.bold, ...FontSize.xl }}>
                 {item.subtitle}
               </Text>
             </View>

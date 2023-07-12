@@ -27,6 +27,10 @@ const fuel = () => {
       generateCustomerBill(dispensorId)
         .then((res) => {
           setBill(res);
+          wallet &&
+            (res.billAmount < wallet?.totAmount
+              ? setAmount(res.billAmount.toString())
+              : setAmount(wallet?.totAmount.toString()));
         })
         .catch((err) => {
           console.log("Error in fetchBill");
@@ -87,15 +91,15 @@ const fuel = () => {
             value={bill?.dispensorId || "DKI299KLL"}
           />
           <Detail title="Bill amount" value={bill?.billAmount || "400"} />
-          <Detail
+          {/* <Detail
             title="Customer Redeemed"
             value={bill?.customerRedeemedAmount || "400"}
           />
           <Detail
             title="Marshall Redeemed"
             value={bill?.marshallRedeemedAmount || "400"}
-          />
-          <Detail title="Total Paid" value={bill?.paidAmount || "400"} />
+          /> */}
+          <Detail title="Amount" value={bill?.paidAmount || "400"} />
           <Detail
             title="Transaction Code"
             value={bill?.transactionCode || "FJDJ3223J2"}
@@ -136,6 +140,7 @@ const fuel = () => {
             <TextInput
               style={styles.input}
               value={amount}
+              defaultValue={wallet?.totAmount.toString()}
               onChangeText={(text) => setAmount(text)}
               keyboardType="number-pad"
             />

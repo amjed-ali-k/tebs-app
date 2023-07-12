@@ -1,4 +1,10 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import { Transaction, redeemRewareds } from "../../../common/api";
 import { Image } from "expo-image";
@@ -7,12 +13,13 @@ import {
   FontSize,
   Gray,
   Inter,
+  Red,
   Yellow,
 } from "../../../components/styling/constants";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import { Link, useRouter, useSearchParams } from "expo-router";
 import QRCode from "react-qr-code";
-
+import { FontAwesome } from "@expo/vector-icons";
 const displayQr = () => {
   const router = useRouter();
   const { transactionId, amount } = useSearchParams<{
@@ -31,15 +38,12 @@ const displayQr = () => {
       });
   }, [transactionId]);
 
-  useEffect(() => {
-    txn &&
-      setTimeout(() => {
-        router.push({ pathname: "success", params: txn });
-      }, 20000);
-  }, [txn]);
-
   const windowHeight = Dimensions.get("window").height;
   const windowWidth = Dimensions.get("window").width;
+
+  const handleClose = () => {
+    txn && router.push({ pathname: "success", params: txn });
+  };
 
   return (
     <View
@@ -60,6 +64,13 @@ const displayQr = () => {
         style={styles.cardBgImage}
       />
       <View style={styles.cardContainer}>
+        <TouchableOpacity
+          activeOpacity={0.7}
+          style={styles.closeButtonContainer}
+          onPress={handleClose}
+        >
+          <FontAwesome name="times" size={24} color="white" />
+        </TouchableOpacity>
         <View
           style={{
             marginTop: 20,
@@ -76,7 +87,6 @@ const displayQr = () => {
               }
             />
           </View>
-
           <View
             style={{
               marginVertical: 20,
@@ -124,6 +134,19 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   center: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  closeButtonContainer: {
+    position: "absolute",
+    top: 10,
+    right: 10,
+    zIndex: 1000,
+    backgroundColor: Red[500],
+    borderRadius: 99999,
+    width: 40,
+    height: 40,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",

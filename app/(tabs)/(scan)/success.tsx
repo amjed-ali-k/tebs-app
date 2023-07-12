@@ -7,7 +7,6 @@ import {
   Gray,
   Green,
   Inter,
-  Shadow,
 } from "../../../components/styling/constants";
 import ExpoStatusBar from "expo-status-bar/build/ExpoStatusBar";
 import { useSearchParams } from "expo-router";
@@ -18,7 +17,11 @@ type TxnType = { [K in keyof Transaction]: string };
 const success = () => {
   const animation = useRef<AnimatedLottieView>(null);
   const txn = useSearchParams<TxnType>();
-  console.log(txn);
+
+  const paidAmount =
+    parseInt(txn.billAmount || "0") -
+    parseInt(txn.customerRedeemedAmount || "0");
+
   return (
     <View style={styles.container}>
       <ExpoStatusBar
@@ -38,7 +41,7 @@ const success = () => {
               animation.current?.play();
             }}
             style={styles.animation}
-            source={require("./../../../assets/animations/check.json")}
+            source={require("./../../../assets/animations/payment-success.json")}
           />
           <Text style={styles.successMessage}>Redemption success</Text>
           <Text style={styles.pointsText}>
@@ -56,16 +59,15 @@ const success = () => {
       <View style={styles.detailsCardContainer}>
         <Text style={styles.detailsCardTitle}>Transaction Details</Text>
         <Detail title="Dispencer Id" value={txn.dispensorId || "DKI299KLL"} />
-        <Detail title="Bill amount" value={txn.billAmount || "400"} />
+        <Detail title="Bill amount" value={txn.billAmount || "0"} />
         <Detail
           title="Customer Redeemed"
-          value={txn.customerRedeemedAmount || "400"}
+          value={txn.customerRedeemedAmount || "0"}
         />
-        <Detail
+        {/* <Detail
           title="Marshall Redeemed"
           value={txn.marshallRedeemedAmount || "400"}
-        />
-        <Detail title="Total Paid" value={txn.paidAmount || "400"} />
+        /> */}
         <Detail
           title="Transaction Code"
           value={txn.transactionCode || "FJDJ3223J2"}
@@ -80,6 +82,7 @@ const success = () => {
           title="Transaction Code"
           value={txn.transactionCode || "FJDJ3223J2"}
         />
+        <Detail title="Amount" value={`${paidAmount}`} />
       </View>
     </View>
   );
@@ -143,8 +146,8 @@ const styles = StyleSheet.create({
     color: Green[600],
   },
   animation: {
-    width: 70,
-    height: 70,
+    width: 160,
+    height: 160,
   },
   animatedContainer: {
     display: "flex",
@@ -171,5 +174,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flex: 1,
+    backgroundColor: "#fff",
   },
 });

@@ -40,6 +40,7 @@ import {
   Shadow,
   White,
 } from "../../../components/styling/constants";
+import { useWallet } from "../../../common/hooks";
 
 const RewardItem = ({
   id,
@@ -164,7 +165,7 @@ export default function MyCard() {
   const [selectedRewards, setSelectedRewards] = React.useState<string[]>([]);
 
   const [coupons, setCoupons] = useState<CouponType[] | null>(null);
-
+  const wallet = useWallet();
   useEffect(() => {
     axios
       .get<CouponType[]>(
@@ -233,7 +234,9 @@ export default function MyCard() {
                 padding: 16,
               }}
             >
-              <Text style={styles.pointsText}>6000</Text>
+              <Text style={styles.pointsText}>
+                {wallet?.totAmountAlloted || "0"}
+              </Text>
               <Text style={styles.pointsDesc}>Alloted points</Text>
             </View>
             <View
@@ -241,7 +244,7 @@ export default function MyCard() {
                 padding: 16,
               }}
             >
-              <Text style={styles.pointsText}>1500</Text>
+              <Text style={styles.pointsText}>{wallet?.totAmount || "0"}</Text>
               <Text style={styles.pointsDesc}>Active points</Text>
             </View>
             <View
@@ -249,7 +252,7 @@ export default function MyCard() {
                 padding: 16,
               }}
             >
-              <Text style={styles.pointsText}>4000</Text>
+              <Text style={styles.pointsText}>530</Text>
               <Text style={styles.pointsDesc}>Used points</Text>
             </View>
           </View>
